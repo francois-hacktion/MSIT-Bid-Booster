@@ -1,54 +1,92 @@
-# 🚀 BidBooster Demo
+# 🚀 BidBooster — Démo SaaS IA pour la Réponse aux Appels d'Offres
 
-> **Répondez à 100% de vos appels d'offres pertinents.**
+> **Projet vibe-codé en ~2h avec [Claude](https://claude.ai)** dans le cadre du Mastère Spécialisé MSIT (Mines Paris - PSL)
 
-Démo interactive pour le jury MSIT — Mines Paris PSL (Février 2026).
+![BidBooster Demo](https://img.shields.io/badge/Status-Demo-blue) ![Made with Claude](https://img.shields.io/badge/Vibe%20Coded-with%20Claude-orange) ![MSIT](https://img.shields.io/badge/MSIT-Mines%20Paris-purple)
 
-## 📁 Fichiers
+## 📋 À propos
 
-| Fichier | Description |
-|---------|-------------|
-| `index.html` | Landing Page commerciale |
-| `dashboard.html` | Dashboard opérationnel simulé |
-| `logos/` | Assets visuels (BidBooster.png, BidAI.png) |
+BidBooster est une **démo fonctionnelle** d'un SaaS IA dédié à l'automatisation de la réponse aux appels d'offres. Ce prototype illustre comment l'intelligence artificielle peut transformer l'avant-vente des ESN et cabinets de conseil.
 
-## 🚀 Lancer la Démo
+⚠️ **Disclaimer** : Il s'agit d'une démo de démonstration. Toutes les données, clients et chiffres présentés sont **100% fictifs**.
 
-### Option Simple (Recommandée)
-Double-cliquez sur `index.html` pour l'ouvrir dans votre navigateur.
+## ✨ Fonctionnalités Démontrées
 
-### Option Serveur Local
-```bash
-python3 -m http.server 8000
-# Ouvrir http://localhost:8000
+### Landing Page (`index.html`)
+- Value proposition claire
+- Calculateur ROI interactif
+- SSO entreprise (simulation)
+
+### Dashboard (`dashboard.html`)
+- Vue pipeline des AO en cours
+- Scores LLM-as-a-Judge (4 modèles open source)
+- Panel détail AO avec métriques
+
+### Pipeline (`pipeline.html`)
+- Gestion des appels d'offres
+- Filtres et tri dynamiques
+- Statuts GO/NO-GO/À qualifier
+
+### Technologie (`technologie.html`)
+- Flow métier en 6 étapes
+- Architecture souveraine européenne
+- Human-in-the-Loop mis en valeur
+
+## 🛠️ Stack Technique
+
+```
+HTML5 + Tailwind CSS (CDN) + Vanilla JS
+├── Lucide Icons
+├── Google Fonts (Outfit, Plus Jakarta Sans)
+└── Hébergement statique (Cloudflare Pages)
 ```
 
-## 🎯 Parcours de Démonstration
+**Philosophie "No-Build"** : Stack volontairement simple pour un prototypage ultra-rapide. Aucune dépendance npm, aucun bundler.
 
-1. **Landing Page** → Proposition de valeur + Chiffres ROI
-2. **Dashboard** → KPIs temps réel + Pipeline des 6 AO actifs
-3. **Détail AO** → Cliquer sur "Carrefour" pour voir :
-   - Score 8.6/10 avec vote LLM-as-Judge (4 modèles)
-   - Références RAG (missions passées similaires)
-   - Draft généré avec zones "à valider"
-   - Boutons Override pour contrôle humain
-4. **Upload** → Bouton "Analyser un AO" pour montrer l'ingestion
+## 🚀 Lancer en Local
 
-## 💡 Points Clés
+```bash
+# Cloner le repo
+git clone https://github.com/francois-hacktion/MSIT-Bid-Booster.git
+cd MSIT-Bid-Booster
 
-- **LLM-as-Judge** : Transparence des décisions IA (4 modèles votent)
-- **RAG Insights** : Preuves vérifiables issues de la base de savoir
-- **Contrôle Humain** : Chaque score peut être overridé avec justification
+# Serveur local Python
+python3 -m http.server 8080
 
-## 📊 Chiffres ROI
+# Ou avec Node
+npx serve .
+```
 
-| Métrique | Amélioration |
-|----------|--------------|
-| Temps de production | **-60%** |
-| Coûts avant-vente | **-50%** |
-| Taux de succès | **+20%** |
-| Couverture AO | **100%** |
+Puis ouvrir http://localhost:8080
+
+## 📁 Structure
+
+```
+MSIT-Bid-Booster/
+├── index.html          # Landing page
+├── dashboard.html      # Dashboard principal
+├── pipeline.html       # Gestion pipeline AO
+├── technologie.html    # Page architecture technique
+├── logos/              # Assets visuels
+│   └── BidBooster.png
+└── README.md
+```
+
+## 🎯 Contexte MSIT
+
+Ce prototype a été réalisé dans le cadre du **Mastère Spécialisé Management des Systèmes d'Information et des Technologies** (MSIT) de Mines Paris - PSL, pour illustrer les concepts de :
+
+- Product Management & Prototypage rapide
+- IA Générative appliquée au métier
+- Architecture souveraine & Open Source
+- Human-in-the-Loop design
+
+## 👤 Auteur
+
+**François Pannecoucke**
+- 🌐 [hacktion.fr](https://hacktion.fr)
+- 💼 Consultant en Transformation Digitale
 
 ---
 
-*MSIT Demo — Février 2026*
+*Vibe-coded with Claude (Anthropic) — Février 2026*
