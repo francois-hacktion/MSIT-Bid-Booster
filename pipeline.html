@@ -65,15 +65,6 @@
             border-left-color: #0A66C2;
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
         .filter-btn.active {
             background: #0A66C2;
             color: white;
@@ -83,15 +74,34 @@
             background: linear-gradient(90deg, #0A66C2 0%, #00B389 100%);
         }
 
-        .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.3s ease;
+        .table-row {
+            transition: background 0.15s ease;
         }
 
-        .tooltip-trigger:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
+        .table-row:hover {
+            background: #F8FAFC;
+        }
+
+        .sort-btn {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sort-btn:hover {
+            color: #0A66C2;
+        }
+
+        .sort-btn.active {
+            color: #0A66C2;
+            font-weight: 600;
+        }
+
+        .sort-btn.asc::after {
+            content: ' ↑';
+        }
+
+        .sort-btn.desc::after {
+            content: ' ↓';
         }
     </style>
 </head>
@@ -100,139 +110,126 @@
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-gray-200 fixed h-full">
-            <div class="p-6">
+        <aside class="w-56 bg-white border-r border-gray-200 fixed h-full">
+            <div class="p-5">
                 <a href="index.html" class="flex items-center gap-3">
-                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-10">
+                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-9">
                 </a>
             </div>
 
-            <nav class="px-4 space-y-1">
+            <nav class="px-3 space-y-0.5">
                 <a href="dashboard.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Dashboard</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Dashboard</span>
                 </a>
                 <a href="pipeline.html"
-                    class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="inbox" class="w-5 h-5 text-brand-primary"></i>
-                    <span class="font-medium">Pipeline AO</span>
-                    <span class="ml-auto bg-brand-primary text-white text-xs px-2 py-0.5 rounded-full">12</span>
+                    class="sidebar-item active flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="inbox" class="w-4 h-4 text-brand-primary"></i>
+                    <span class="text-sm font-medium">Pipeline AO</span>
+                    <span class="ml-auto bg-brand-primary text-white text-xs px-1.5 py-0.5 rounded-full">12</span>
                 </a>
-                <a href="#"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="file-plus" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Nouvel AO</span>
+                <a href="#" onclick="openUploadModal(); return false;"
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="file-plus" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Nouvel AO</span>
                 </a>
                 <a href="knowledge.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="database" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Base de Savoir</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="database" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Base de Savoir</span>
                 </a>
                 <a href="analytics.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Analytics</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Analytics</span>
                 </a>
             </nav>
 
             <!-- User Section -->
-            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
-                        <span class="text-brand-primary font-semibold">JM</span>
+            <div class="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-200">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                        <span class="text-brand-primary font-semibold text-xs">JM</span>
                     </div>
                     <div class="flex-1">
-                        <div class="font-medium text-sm">Julie Martin</div>
-                        <div class="text-xs text-gray-500">Bid Manager</div>
+                        <div class="font-medium text-xs">Julie Martin</div>
+                        <div class="text-xs text-gray-400">Bid Manager</div>
                     </div>
                 </div>
             </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 ml-64 p-8">
+        <main class="flex-1 ml-56 p-6">
             <!-- Header -->
-            <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h1 class="text-3xl font-bold">Pipeline Appels d'Offres</h1>
-                    <p class="text-gray-500 mt-1">Gérez et suivez tous vos appels d'offres en cours</p>
+                    <h1 class="text-2xl font-bold">Pipeline Appels d'Offres</h1>
+                    <p class="text-gray-500 text-sm mt-0.5">12 AO actifs • Valeur totale : 34.6M€</p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <button
-                        class="bg-brand-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-brand-primary/90 transition-colors flex items-center gap-2 cursor-pointer">
-                        <i data-lucide="upload" class="w-5 h-5"></i>
-                        Analyser un AO
-                    </button>
-                </div>
+                <button onclick="openUploadModal()"
+                    class="bg-brand-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-primary/90 transition-colors flex items-center gap-2 text-sm cursor-pointer">
+                    <i data-lucide="upload" class="w-4 h-4"></i>
+                    Analyser un AO
+                </button>
             </div>
 
-            <!-- Filters & Search -->
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
-                <div class="flex flex-wrap items-center gap-4">
+            <!-- Filters Bar -->
+            <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 mb-4">
+                <div class="flex flex-wrap items-center gap-3">
                     <!-- Search -->
-                    <div class="flex-1 min-w-[300px]">
+                    <div class="flex-1 min-w-[250px]">
                         <div class="relative">
                             <i data-lucide="search"
-                                class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-                            <input type="text" id="searchInput" placeholder="Rechercher par client, projet, secteur..."
-                                class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                                class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="searchInput" placeholder="Rechercher..."
+                                class="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
                         </div>
                     </div>
 
                     <!-- Status Filter -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-gray-500">Statut:</span>
+                    <div class="flex items-center gap-1.5">
                         <button onclick="filterByStatus('all')"
-                            class="filter-btn active px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 cursor-pointer"
-                            data-status="all">Tous</button>
+                            class="filter-btn active px-2.5 py-1.5 rounded text-xs font-medium border border-gray-200 cursor-pointer"
+                            data-status="all">Tous (12)</button>
                         <button onclick="filterByStatus('go')"
-                            class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 cursor-pointer"
-                            data-status="go">GO</button>
+                            class="filter-btn px-2.5 py-1.5 rounded text-xs font-medium border border-gray-200 cursor-pointer flex items-center gap-1"
+                            data-status="go">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>GO (7)
+                        </button>
                         <button onclick="filterByStatus('review')"
-                            class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 cursor-pointer"
-                            data-status="review">À Évaluer</button>
+                            class="filter-btn px-2.5 py-1.5 rounded text-xs font-medium border border-gray-200 cursor-pointer flex items-center gap-1"
+                            data-status="review">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>Évaluer (3)
+                        </button>
                         <button onclick="filterByStatus('nogo')"
-                            class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 cursor-pointer"
-                            data-status="nogo">NO-GO</button>
-                    </div>
-
-                    <!-- Sort -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-gray-500">Trier:</span>
-                        <select id="sortSelect" onchange="sortPipeline()"
-                            class="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 cursor-pointer">
-                            <option value="deadline">Deadline ↑</option>
-                            <option value="score">Score ↓</option>
-                            <option value="value">Valeur ↓</option>
-                            <option value="progress">Progression ↓</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="flex items-center gap-6 mt-4 pt-4 border-t border-gray-100">
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                        <span class="text-sm text-gray-600"><strong id="countGo">7</strong> GO Recommandés</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
-                        <span class="text-sm text-gray-600"><strong id="countReview">3</strong> À Évaluer</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-                        <span class="text-sm text-gray-600"><strong id="countNogo">2</strong> NO-GO</span>
-                    </div>
-                    <div class="ml-auto text-sm text-gray-500">
-                        Valeur totale pipeline: <strong class="text-brand-dark">24.8M€</strong>
+                            class="filter-btn px-2.5 py-1.5 rounded text-xs font-medium border border-gray-200 cursor-pointer flex items-center gap-1"
+                            data-status="nogo">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>NO-GO (2)
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Pipeline Grid -->
-            <div id="pipelineGrid" class="grid gap-4">
-                <!-- AO Cards will be rendered here by JS -->
+            <!-- Pipeline Table -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                <!-- Table Header -->
+                <div
+                    class="grid grid-cols-12 gap-4 px-4 py-3 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <div class="col-span-3 sort-btn active desc" onclick="sortBy('title')">Projet</div>
+                    <div class="col-span-2 sort-btn" onclick="sortBy('client')">Client</div>
+                    <div class="col-span-1 text-center sort-btn" onclick="sortBy('status')">Statut</div>
+                    <div class="col-span-1 text-right sort-btn" onclick="sortBy('value')">Budget</div>
+                    <div class="col-span-1 text-center sort-btn" onclick="sortBy('score')">Score</div>
+                    <div class="col-span-2 text-center sort-btn" onclick="sortBy('deadline')">Deadline</div>
+                    <div class="col-span-2 text-center">Progression</div>
+                </div>
+
+                <!-- Table Body -->
+                <div id="pipelineTable" class="divide-y divide-gray-100">
+                    <!-- Rows rendered by JS -->
+                </div>
             </div>
         </main>
     </div>
@@ -240,311 +237,192 @@
     <script>
         lucide.createIcons();
 
-        // Sample data - représente les AO du pipeline
+        // Pipeline data
         const pipelineData = [
-            {
-                id: 'ao1',
-                title: 'Transformation SI Retail',
-                client: 'Carrefour France',
-                sector: 'Retail / GMS',
-                value: 2400000,
-                deadline: '2026-02-15',
-                score: 8.6,
-                status: 'go',
-                progress: 65,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 11
-            },
-            {
-                id: 'ao2',
-                title: 'Migration Cloud Souverain',
-                client: 'BNP Paribas',
-                sector: 'Banque / Finance',
-                value: 4800000,
-                deadline: '2026-02-22',
-                score: 9.1,
-                status: 'go',
-                progress: 40,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 18
-            },
-            {
-                id: 'ao3',
-                title: 'Plateforme Data Analytics',
-                client: 'TotalEnergies',
-                sector: 'Énergie',
-                value: 1200000,
-                deadline: '2026-02-28',
-                score: 6.4,
-                status: 'review',
-                progress: 15,
-                statusLabel: 'À Évaluer',
-                statusColor: 'yellow',
-                daysLeft: 24
-            },
-            {
-                id: 'ao4',
-                title: 'Modernisation ERP',
-                client: 'Société Générale',
-                sector: 'Banque / Finance',
-                value: 3200000,
-                deadline: '2026-02-10',
-                score: 4.2,
-                status: 'nogo',
-                progress: 10,
-                statusLabel: 'NO-GO Suggéré',
-                statusColor: 'red',
-                daysLeft: 6
-            },
-            {
-                id: 'ao5',
-                title: 'Cybersécurité Zero Trust',
-                client: 'Airbus Defence',
-                sector: 'Aéronautique / Défense',
-                value: 5600000,
-                deadline: '2026-03-01',
-                score: 8.9,
-                status: 'go',
-                progress: 25,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 25
-            },
-            {
-                id: 'ao6',
-                title: 'Refonte Portail Client',
-                client: 'AXA France',
-                sector: 'Assurance',
-                value: 1800000,
-                deadline: '2026-02-20',
-                score: 7.8,
-                status: 'go',
-                progress: 55,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 16
-            },
-            {
-                id: 'ao7',
-                title: 'IA Générative RH',
-                client: 'L\'Oréal',
-                sector: 'Cosmétiques / Luxe',
-                value: 950000,
-                deadline: '2026-03-05',
-                score: 8.2,
-                status: 'go',
-                progress: 20,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 29
-            },
-            {
-                id: 'ao8',
-                title: 'Système de Gestion Logistique',
-                client: 'Geodis',
-                sector: 'Transport / Logistique',
-                value: 2100000,
-                deadline: '2026-02-25',
-                score: 5.8,
-                status: 'review',
-                progress: 8,
-                statusLabel: 'À Évaluer',
-                statusColor: 'yellow',
-                daysLeft: 21
-            },
-            {
-                id: 'ao9',
-                title: 'Blockchain Supply Chain',
-                client: 'Renault Group',
-                sector: 'Automobile',
-                value: 3500000,
-                deadline: '2026-02-18',
-                score: 3.9,
-                status: 'nogo',
-                progress: 5,
-                statusLabel: 'NO-GO Suggéré',
-                statusColor: 'red',
-                daysLeft: 14
-            },
-            {
-                id: 'ao10',
-                title: 'Plateforme IoT Industrielle',
-                client: 'Schneider Electric',
-                sector: 'Industrie',
-                value: 2800000,
-                deadline: '2026-03-10',
-                score: 8.5,
-                status: 'go',
-                progress: 12,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 34
-            },
-            {
-                id: 'ao11',
-                title: 'Transformation Digitale Agences',
-                client: 'Crédit Agricole',
-                sector: 'Banque / Finance',
-                value: 4200000,
-                deadline: '2026-03-15',
-                score: 7.2,
-                status: 'review',
-                progress: 5,
-                statusLabel: 'À Évaluer',
-                statusColor: 'yellow',
-                daysLeft: 39
-            },
-            {
-                id: 'ao12',
-                title: 'Système de Réservation Next-Gen',
-                client: 'Accor Hotels',
-                sector: 'Hôtellerie / Tourisme',
-                value: 1600000,
-                deadline: '2026-02-28',
-                score: 8.0,
-                status: 'go',
-                progress: 30,
-                statusLabel: 'GO Recommandé',
-                statusColor: 'green',
-                daysLeft: 24
-            }
+            { id: 'ao1', title: 'Transformation SI Retail', client: 'Carrefour', sector: 'Retail', value: 2400000, deadline: '2026-02-15', score: 8.6, status: 'go', progress: 65, daysLeft: 11 },
+            { id: 'ao2', title: 'Migration Cloud Souverain', client: 'BNP Paribas', sector: 'Banque', value: 4800000, deadline: '2026-02-22', score: 9.1, status: 'go', progress: 40, daysLeft: 18 },
+            { id: 'ao3', title: 'Plateforme Data Analytics', client: 'TotalEnergies', sector: 'Énergie', value: 1200000, deadline: '2026-02-28', score: 6.4, status: 'review', progress: 15, daysLeft: 24 },
+            { id: 'ao4', title: 'Modernisation ERP', client: 'Société Générale', sector: 'Banque', value: 3200000, deadline: '2026-02-10', score: 4.2, status: 'nogo', progress: 10, daysLeft: 6 },
+            { id: 'ao5', title: 'Cybersécurité Zero Trust', client: 'Airbus Defence', sector: 'Défense', value: 5600000, deadline: '2026-03-01', score: 8.9, status: 'go', progress: 25, daysLeft: 25 },
+            { id: 'ao6', title: 'Refonte Portail Client', client: 'AXA France', sector: 'Assurance', value: 1800000, deadline: '2026-02-20', score: 7.8, status: 'go', progress: 55, daysLeft: 16 },
+            { id: 'ao7', title: 'IA Générative RH', client: 'L\'Oréal', sector: 'Luxe', value: 950000, deadline: '2026-03-05', score: 8.2, status: 'go', progress: 20, daysLeft: 29 },
+            { id: 'ao8', title: 'Gestion Logistique', client: 'Geodis', sector: 'Transport', value: 2100000, deadline: '2026-02-25', score: 5.8, status: 'review', progress: 8, daysLeft: 21 },
+            { id: 'ao9', title: 'Blockchain Supply Chain', client: 'Renault Group', sector: 'Auto', value: 3500000, deadline: '2026-02-18', score: 3.9, status: 'nogo', progress: 5, daysLeft: 14 },
+            { id: 'ao10', title: 'Plateforme IoT Industrielle', client: 'Schneider Electric', sector: 'Industrie', value: 2800000, deadline: '2026-03-10', score: 8.5, status: 'go', progress: 12, daysLeft: 34 },
+            { id: 'ao11', title: 'Transformation Digitale', client: 'Crédit Agricole', sector: 'Banque', value: 4200000, deadline: '2026-03-15', score: 7.2, status: 'review', progress: 5, daysLeft: 39 },
+            { id: 'ao12', title: 'Système Réservation', client: 'Accor Hotels', sector: 'Tourisme', value: 1600000, deadline: '2026-02-28', score: 8.0, status: 'go', progress: 30, daysLeft: 24 }
         ];
 
         let currentFilter = 'all';
-        let currentSort = 'deadline';
+        let currentSort = { field: 'deadline', direction: 'asc' };
 
         function formatCurrency(value) {
-            if (value >= 1000000) {
-                return (value / 1000000).toFixed(1) + 'M€';
-            }
+            if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M€';
             return (value / 1000).toFixed(0) + 'k€';
         }
 
+        function getStatusBadge(status) {
+            const badges = {
+                go: '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>GO</span>',
+                review: '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700"><span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>Évaluer</span>',
+                nogo: '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>NO-GO</span>'
+            };
+            return badges[status];
+        }
+
         function getScoreColor(score) {
-            if (score >= 7.5) return 'text-brand-accent';
-            if (score >= 5) return 'text-brand-warning';
-            return 'text-brand-danger';
+            if (score >= 7.5) return 'text-green-600';
+            if (score >= 5) return 'text-yellow-600';
+            return 'text-red-600';
+        }
+
+        function formatDeadline(daysLeft, deadline) {
+            const date = new Date(deadline);
+            const formatted = date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+            if (daysLeft <= 7) {
+                return `<span class="text-red-600 font-medium">${formatted}</span><span class="text-red-500 text-xs ml-1">(${daysLeft}j)</span>`;
+            }
+            return `<span>${formatted}</span><span class="text-gray-400 text-xs ml-1">(${daysLeft}j)</span>`;
         }
 
         function renderPipeline(data) {
-            const grid = document.getElementById('pipelineGrid');
-            grid.innerHTML = data.map(ao => `
-                <div class="ao-card bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover cursor-pointer" 
-                     data-status="${ao.status}" onclick="window.location.href='dashboard.html'">
-                    <div class="flex items-center gap-6">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <h3 class="font-semibold text-lg">${ao.title}</h3>
-                                <span class="bg-${ao.statusColor}-100 text-${ao.statusColor}-700 text-xs font-medium px-2.5 py-1 rounded-full">${ao.statusLabel}</span>
-                            </div>
-                            <div class="flex items-center gap-4 text-sm text-gray-500">
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="building" class="w-4 h-4"></i>
-                                    ${ao.client}
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="tag" class="w-4 h-4"></i>
-                                    ${ao.sector}
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="euro" class="w-4 h-4"></i>
-                                    ${formatCurrency(ao.value)}
-                                </span>
-                                <span class="flex items-center gap-1 ${ao.daysLeft <= 7 ? 'text-red-500 font-medium' : ''}">
-                                    <i data-lucide="calendar" class="w-4 h-4"></i>
-                                    ${ao.daysLeft <= 7 ? '⚠️ ' : ''}${ao.daysLeft}j restants
-                                </span>
-                            </div>
-                        </div>
-                        <div class="text-right min-w-[80px]">
-                            <div class="text-2xl font-bold ${getScoreColor(ao.score)}">${ao.score}/10</div>
-                            <div class="text-xs text-gray-500">Score</div>
-                        </div>
-                        <div class="w-24">
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+            const table = document.getElementById('pipelineTable');
+            table.innerHTML = data.map(ao => `
+                <div class="table-row grid grid-cols-12 gap-4 px-4 py-3 items-center cursor-pointer" onclick="window.location.href='dashboard.html'">
+                    <div class="col-span-3">
+                        <div class="font-medium text-sm text-gray-900">${ao.title}</div>
+                        <div class="text-xs text-gray-400">${ao.sector}</div>
+                    </div>
+                    <div class="col-span-2 text-sm text-gray-700">${ao.client}</div>
+                    <div class="col-span-1 text-center">${getStatusBadge(ao.status)}</div>
+                    <div class="col-span-1 text-right text-sm font-medium">${formatCurrency(ao.value)}</div>
+                    <div class="col-span-1 text-center">
+                        <span class="text-sm font-bold ${getScoreColor(ao.score)}">${ao.score}</span>
+                    </div>
+                    <div class="col-span-2 text-center text-sm">${formatDeadline(ao.daysLeft, ao.deadline)}</div>
+                    <div class="col-span-2">
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                                 <div class="progress-bar h-full rounded-full" style="width: ${ao.progress}%"></div>
                             </div>
-                            <div class="text-xs text-gray-500 mt-1 text-center">${ao.progress}%</div>
+                            <span class="text-xs text-gray-500 w-8">${ao.progress}%</span>
                         </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
                     </div>
                 </div>
             `).join('');
-
-            // Refresh icons
-            lucide.createIcons();
         }
 
         function filterByStatus(status) {
             currentFilter = status;
-
-            // Update button styles
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.status === status) {
-                    btn.classList.add('active');
-                }
+                btn.classList.toggle('active', btn.dataset.status === status);
             });
-
             applyFiltersAndSort();
         }
 
-        function sortPipeline() {
-            currentSort = document.getElementById('sortSelect').value;
+        function sortBy(field) {
+            // Update sort direction
+            if (currentSort.field === field) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.field = field;
+                currentSort.direction = field === 'deadline' || field === 'title' ? 'asc' : 'desc';
+            }
+
+            // Update UI
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.remove('active', 'asc', 'desc');
+            });
+            event.target.classList.add('active', currentSort.direction);
+
             applyFiltersAndSort();
         }
 
         function applyFiltersAndSort() {
-            let filteredData = [...pipelineData];
+            let data = [...pipelineData];
 
-            // Apply status filter
+            // Filter
             if (currentFilter !== 'all') {
-                filteredData = filteredData.filter(ao => ao.status === currentFilter);
+                data = data.filter(ao => ao.status === currentFilter);
             }
 
-            // Apply search
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if (searchTerm) {
-                filteredData = filteredData.filter(ao =>
-                    ao.title.toLowerCase().includes(searchTerm) ||
-                    ao.client.toLowerCase().includes(searchTerm) ||
-                    ao.sector.toLowerCase().includes(searchTerm)
+            // Search
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            if (search) {
+                data = data.filter(ao =>
+                    ao.title.toLowerCase().includes(search) ||
+                    ao.client.toLowerCase().includes(search) ||
+                    ao.sector.toLowerCase().includes(search)
                 );
             }
 
-            // Apply sort
-            switch (currentSort) {
-                case 'deadline':
-                    filteredData.sort((a, b) => a.daysLeft - b.daysLeft);
-                    break;
-                case 'score':
-                    filteredData.sort((a, b) => b.score - a.score);
-                    break;
-                case 'value':
-                    filteredData.sort((a, b) => b.value - a.value);
-                    break;
-                case 'progress':
-                    filteredData.sort((a, b) => b.progress - a.progress);
-                    break;
-            }
+            // Sort
+            data.sort((a, b) => {
+                let valA = a[currentSort.field];
+                let valB = b[currentSort.field];
 
-            renderPipeline(filteredData);
-            updateCounts();
+                if (currentSort.field === 'deadline') {
+                    valA = a.daysLeft;
+                    valB = b.daysLeft;
+                }
+
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+
+                if (currentSort.direction === 'asc') {
+                    return valA > valB ? 1 : -1;
+                } else {
+                    return valA < valB ? 1 : -1;
+                }
+            });
+
+            renderPipeline(data);
         }
 
-        function updateCounts() {
-            document.getElementById('countGo').textContent = pipelineData.filter(ao => ao.status === 'go').length;
-            document.getElementById('countReview').textContent = pipelineData.filter(ao => ao.status === 'review').length;
-            document.getElementById('countNogo').textContent = pipelineData.filter(ao => ao.status === 'nogo').length;
-        }
-
-        // Initialize
+        // Init
         document.getElementById('searchInput').addEventListener('input', applyFiltersAndSort);
-        renderPipeline(pipelineData);
-        updateCounts();
+        applyFiltersAndSort();
+
+        // Upload Modal
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('active');
+        }
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('active');
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeUploadModal();
+        });
     </script>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center hidden"
+        style="display: none;">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 shadow-2xl">
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                <h3 class="font-bold">Analyser un nouvel AO</h3>
+                <button onclick="closeUploadModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div
+                    class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-brand-primary hover:bg-brand-primary/5 transition-all cursor-pointer">
+                    <i data-lucide="upload-cloud" class="w-12 h-12 text-gray-400 mx-auto mb-3"></i>
+                    <h4 class="font-semibold mb-1">Glissez-déposez votre RFP</h4>
+                    <p class="text-gray-500 text-sm">PDF, Word, Excel (max 50MB)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #uploadModal.active {
+            display: flex !important;
+        }
+    </style>
 </body>
 
 </html>

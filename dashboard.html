@@ -6,39 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BidBooster — Dashboard</title>
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            primary: '#0A66C2',
-                            accent: '#00B389',
-                            warning: '#F59E0B',
-                            danger: '#EF4444',
-                            dark: '#0F172A',
-                            surface: '#F8FAFC'
-                        }
+                        brand: { primary: '#0A66C2', accent: '#00B389', warning: '#F59E0B', danger: '#EF4444', dark: '#0F172A', surface: '#F8FAFC' }
                     },
-                    fontFamily: {
-                        display: ['Outfit', 'sans-serif'],
-                        body: ['Plus Jakarta Sans', 'sans-serif']
-                    }
+                    fontFamily: { display: ['Outfit', 'sans-serif'], body: ['Plus Jakarta Sans', 'sans-serif'] }
                 }
             }
         }
     </script>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -65,29 +51,24 @@
             border-left-color: #0A66C2;
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
+        .progress-bar {
+            background: linear-gradient(90deg, #0A66C2 0%, #00B389 100%);
         }
 
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .table-row {
+            transition: background 0.15s ease;
         }
 
-        .status-badge {
-            animation: pulse 2s infinite;
+        .table-row:hover {
+            background: #F8FAFC;
         }
 
-        @keyframes pulse {
+        .modal {
+            display: none;
+        }
 
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.7;
-            }
+        .modal.active {
+            display: flex;
         }
 
         .tooltip {
@@ -100,408 +81,280 @@
             visibility: visible;
             opacity: 1;
         }
-
-        .progress-bar {
-            background: linear-gradient(90deg, #0A66C2 0%, #00B389 100%);
-        }
-
-        .modal {
-            display: none;
-        }
-
-        .modal.active {
-            display: flex;
-        }
     </style>
 </head>
 
 <body class="bg-gray-50 text-brand-dark">
 
     <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-gray-200 fixed h-full">
-            <div class="p-6">
+        <!-- Sidebar Compact -->
+        <aside class="w-56 bg-white border-r border-gray-200 fixed h-full">
+            <div class="p-5">
                 <a href="index.html" class="flex items-center gap-3">
-                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-10">
+                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-9">
                 </a>
             </div>
 
-            <nav class="px-4 space-y-1">
+            <nav class="px-3 space-y-0.5">
                 <a href="dashboard.html"
-                    class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-brand-primary"></i>
-                    <span class="font-medium">Dashboard</span>
+                    class="sidebar-item active flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-primary"></i>
+                    <span class="text-sm font-medium">Dashboard</span>
                 </a>
                 <a href="pipeline.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="inbox" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Pipeline AO</span>
-                    <span class="ml-auto bg-brand-primary text-white text-xs px-2 py-0.5 rounded-full">12</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="inbox" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Pipeline AO</span>
+                    <span class="ml-auto bg-brand-primary text-white text-xs px-1.5 py-0.5 rounded-full">12</span>
                 </a>
                 <a href="#" onclick="openUploadModal(); return false;"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="file-plus" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Nouvel AO</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="file-plus" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Nouvel AO</span>
                 </a>
                 <a href="knowledge.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="database" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Base de Savoir</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="database" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Base de Savoir</span>
                 </a>
                 <a href="analytics.html"
-                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
-                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-gray-500"></i>
-                    <span class="font-medium text-gray-600">Analytics</span>
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-gray-500"></i>
+                    <span class="text-sm font-medium text-gray-600">Analytics</span>
                 </a>
             </nav>
 
-            <!-- User Section -->
-            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
-                        <span class="text-brand-primary font-semibold">JM</span>
+            <div class="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-200">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                        <span class="text-brand-primary font-semibold text-xs">JM</span>
                     </div>
                     <div class="flex-1">
-                        <div class="font-medium text-sm">Julie Martin</div>
-                        <div class="text-xs text-gray-500">Bid Manager</div>
+                        <div class="font-medium text-xs">Julie Martin</div>
+                        <div class="text-xs text-gray-400">Bid Manager</div>
                     </div>
-                    <i data-lucide="settings" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600"></i>
                 </div>
             </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 ml-64 p-8">
+        <main class="flex-1 ml-56 p-6">
             <!-- Header -->
-            <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h1 class="text-3xl font-bold">Bonjour Julie 👋</h1>
-                    <p class="text-gray-500 mt-1">Voici votre activité avant-vente du mois</p>
+                    <h1 class="text-2xl font-bold">Bonjour Julie 👋</h1>
+                    <p class="text-gray-500 text-sm mt-0.5">Vue d'ensemble de votre activité avant-vente</p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="openUploadModal()"
-                        class="bg-brand-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-brand-primary/90 transition-colors flex items-center gap-2 cursor-pointer">
-                        <i data-lucide="upload" class="w-5 h-5"></i>
-                        Analyser un AO
-                    </button>
+                <button onclick="openUploadModal()"
+                    class="bg-brand-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-primary/90 transition-colors flex items-center gap-2 text-sm cursor-pointer">
+                    <i data-lucide="upload" class="w-4 h-4"></i>
+                    Analyser un AO
+                </button>
+            </div>
+
+            <!-- KPIs Row -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i data-lucide="file-check" class="w-4 h-4 text-blue-600"></i>
+                        </div>
+                        <span class="text-green-500 text-xs font-medium flex items-center gap-0.5">
+                            <i data-lucide="trending-up" class="w-3 h-3"></i>+3
+                        </span>
+                    </div>
+                    <div class="text-2xl font-bold">12</div>
+                    <div class="text-gray-500 text-xs">AO traités ce mois</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <i data-lucide="hourglass" class="w-4 h-4 text-yellow-600"></i>
+                        </div>
+                        <span class="text-yellow-500 text-xs font-medium">en cours</span>
+                    </div>
+                    <div class="text-2xl font-bold">5</div>
+                    <div class="text-gray-500 text-xs">AO en attente</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i data-lucide="trophy" class="w-4 h-4 text-green-600"></i>
+                        </div>
+                        <span class="text-green-500 text-xs font-medium flex items-center gap-0.5">
+                            <i data-lucide="trending-up" class="w-3 h-3"></i>+8%
+                        </span>
+                    </div>
+                    <div class="text-2xl font-bold">67%</div>
+                    <div class="text-gray-500 text-xs">Taux de succès</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                            <i data-lucide="euro" class="w-4 h-4 text-amber-600"></i>
+                        </div>
+                        <span class="text-brand-primary text-xs font-medium">7 GO actifs</span>
+                    </div>
+                    <div class="text-2xl font-bold">27.2M€</div>
+                    <div class="text-gray-500 text-xs">Valeur pipeline GO</div>
                 </div>
             </div>
 
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- KPI 1 -->
-                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover cursor-pointer">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                            <i data-lucide="file-text" class="w-6 h-6 text-blue-600"></i>
-                        </div>
-                        <span class="text-green-500 text-sm font-medium flex items-center gap-1">
-                            <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            +12%
-                        </span>
+            <!-- Main Grid -->
+            <div class="grid grid-cols-3 gap-4">
+                <!-- Pipeline Summary -->
+                <div class="col-span-2 bg-white rounded-lg shadow-sm border border-gray-100">
+                    <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                        <h2 class="font-semibold">Pipeline Actif</h2>
+                        <a href="pipeline.html" class="text-brand-primary text-xs font-medium hover:underline">Voir tout
+                            →</a>
                     </div>
-                    <div class="text-3xl font-bold mb-1">24</div>
-                    <div class="text-gray-500 text-sm">AO traités ce mois</div>
+
+                    <!-- Mini Table -->
+                    <div class="text-xs">
+                        <div
+                            class="grid grid-cols-12 gap-2 px-4 py-2 bg-gray-50 border-b border-gray-100 font-semibold text-gray-500 uppercase tracking-wider">
+                            <div class="col-span-4">Projet</div>
+                            <div class="col-span-2">Client</div>
+                            <div class="col-span-1 text-center">Statut</div>
+                            <div class="col-span-2 text-right">Budget</div>
+                            <div class="col-span-1 text-center">Score</div>
+                            <div class="col-span-2 text-center">Deadline</div>
+                        </div>
+
+                        <div onclick="openAODetail()"
+                            class="table-row grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-pointer border-b border-gray-50">
+                            <div class="col-span-4 font-medium text-gray-900">Transformation SI Retail</div>
+                            <div class="col-span-2 text-gray-600">Carrefour</div>
+                            <div class="col-span-1 text-center"><span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span
+                                        class="w-1 h-1 bg-green-500 rounded-full"></span>GO</span></div>
+                            <div class="col-span-2 text-right font-medium">2.4M€</div>
+                            <div class="col-span-1 text-center font-bold text-green-600">8.6</div>
+                            <div class="col-span-2 text-center"><span class="text-red-600 font-medium">15
+                                    fév</span><span class="text-gray-400 ml-1">(11j)</span></div>
+                        </div>
+
+                        <div
+                            class="table-row grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-pointer border-b border-gray-50">
+                            <div class="col-span-4 font-medium text-gray-900">Migration Cloud Souverain</div>
+                            <div class="col-span-2 text-gray-600">BNP Paribas</div>
+                            <div class="col-span-1 text-center"><span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span
+                                        class="w-1 h-1 bg-green-500 rounded-full"></span>GO</span></div>
+                            <div class="col-span-2 text-right font-medium">4.8M€</div>
+                            <div class="col-span-1 text-center font-bold text-green-600">9.1</div>
+                            <div class="col-span-2 text-center">22 fév<span class="text-gray-400 ml-1">(18j)</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="table-row grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-pointer border-b border-gray-50">
+                            <div class="col-span-4 font-medium text-gray-900">Cybersécurité Zero Trust</div>
+                            <div class="col-span-2 text-gray-600">Airbus Defence</div>
+                            <div class="col-span-1 text-center"><span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span
+                                        class="w-1 h-1 bg-green-500 rounded-full"></span>GO</span></div>
+                            <div class="col-span-2 text-right font-medium">5.6M€</div>
+                            <div class="col-span-1 text-center font-bold text-green-600">8.9</div>
+                            <div class="col-span-2 text-center">01 mar<span class="text-gray-400 ml-1">(25j)</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="table-row grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-pointer border-b border-gray-50">
+                            <div class="col-span-4 font-medium text-gray-900">Refonte Portail Client</div>
+                            <div class="col-span-2 text-gray-600">AXA France</div>
+                            <div class="col-span-1 text-center"><span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span
+                                        class="w-1 h-1 bg-green-500 rounded-full"></span>GO</span></div>
+                            <div class="col-span-2 text-right font-medium">1.8M€</div>
+                            <div class="col-span-1 text-center font-bold text-green-600">7.8</div>
+                            <div class="col-span-2 text-center">20 fév<span class="text-gray-400 ml-1">(16j)</span>
+                            </div>
+                        </div>
+
+                        <div class="table-row grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-pointer">
+                            <div class="col-span-4 font-medium text-gray-900">IA Générative RH</div>
+                            <div class="col-span-2 text-gray-600">L'Oréal</div>
+                            <div class="col-span-1 text-center"><span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700"><span
+                                        class="w-1 h-1 bg-green-500 rounded-full"></span>GO</span></div>
+                            <div class="col-span-2 text-right font-medium">950k€</div>
+                            <div class="col-span-1 text-center font-bold text-green-600">8.2</div>
+                            <div class="col-span-2 text-center">05 mar<span class="text-gray-400 ml-1">(29j)</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- KPI 2 -->
-                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover cursor-pointer">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                            <i data-lucide="trophy" class="w-6 h-6 text-green-600"></i>
-                        </div>
-                        <span class="text-green-500 text-sm font-medium flex items-center gap-1">
-                            <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            +8%
-                        </span>
-                    </div>
-                    <div class="text-3xl font-bold mb-1">67%</div>
-                    <div class="text-gray-500 text-sm">Taux de succès</div>
-                </div>
-
-                <!-- KPI 3 -->
-                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover cursor-pointer">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                            <i data-lucide="clock" class="w-6 h-6 text-purple-600"></i>
-                        </div>
-                        <span class="text-green-500 text-sm font-medium flex items-center gap-1">
-                            <i data-lucide="trending-down" class="w-4 h-4"></i>
-                            -63%
-                        </span>
-                    </div>
-                    <div class="text-3xl font-bold mb-1">312h</div>
-                    <div class="text-gray-500 text-sm">Heures économisées</div>
-                </div>
-
-                <!-- KPI 4 -->
-                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 card-hover cursor-pointer">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                            <i data-lucide="euro" class="w-6 h-6 text-amber-600"></i>
-                        </div>
-                        <span class="text-green-500 text-sm font-medium flex items-center gap-1">
-                            <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            ROI 4.2x
-                        </span>
-                    </div>
-                    <div class="text-3xl font-bold mb-1">847k€</div>
-                    <div class="text-gray-500 text-sm">Valeur pipeline actif</div>
-                </div>
-            </div>
-
-            <!-- Pipeline Section -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-8">
-                <div class="p-6 border-b border-gray-100">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-xl font-bold">Pipeline Appels d'Offres</h2>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm text-gray-500">6 AO actifs</span>
-                            <i data-lucide="filter"
-                                class="w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="divide-y divide-gray-100">
-                    <!-- AO Row 1 - Clickable -->
-                    <div onclick="openAODetail('ao1')" class="p-6 hover:bg-gray-50 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-semibold text-lg">Transformation SI Retail — Carrefour</h3>
-                                    <span
-                                        class="bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full">GO
-                                        Recommandé</span>
-                                </div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="building" class="w-4 h-4"></i>
-                                        Carrefour France
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="euro" class="w-4 h-4"></i>
-                                        2.4M€
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                                        Deadline: 15 Feb
-                                    </span>
-                                </div>
+                <!-- Right Column -->
+                <div class="space-y-4">
+                    <!-- Quick Stats -->
+                    <div class="bg-gradient-to-br from-brand-dark to-slate-800 rounded-lg p-4 text-white">
+                        <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                            <i data-lucide="brain" class="w-4 h-4 text-brand-accent"></i>
+                            Performance IA
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div>
+                                <div class="text-2xl font-bold text-brand-accent">92%</div>
+                                <div class="text-xs text-gray-400">Précision</div>
                             </div>
-                            <div class="text-right">
-                                <div class="tooltip-trigger relative">
-                                    <div class="text-2xl font-bold text-brand-accent">8.6/10</div>
-                                    <div class="text-xs text-gray-500">Score Pertinence</div>
-                                    <!-- LLM Judge Tooltip -->
-                                    <div
-                                        class="tooltip absolute right-0 top-full mt-2 w-80 bg-brand-dark text-white rounded-xl p-4 shadow-2xl z-50">
-                                        <div class="text-sm font-semibold mb-3 flex items-center gap-2">
-                                            <i data-lucide="brain" class="w-4 h-4 text-brand-accent"></i>
-                                            Verdict LLM-as-Judge
-                                        </div>
-                                        <div class="space-y-2 text-sm">
-                                            <div class="flex items-center justify-between">
-                                                <span class="flex items-center gap-2">
-                                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                                    Claude 3.5
-                                                </span>
-                                                <span>8.8 — "Forte adéquation sectorielle"</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="flex items-center gap-2">
-                                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                                    GPT-4o
-                                                </span>
-                                                <span>8.5 — "Références solides"</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="flex items-center gap-2">
-                                                    <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
-                                                    Mistral Large
-                                                </span>
-                                                <span>8.2 — "Planning serré"</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="flex items-center gap-2">
-                                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                                    Llama 3.2
-                                                </span>
-                                                <span>8.9 — "Équipe dimensionnée"</span>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="mt-3 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
-                                            <span>Consensus : <strong class="text-green-400">Fort</strong> (σ =
-                                                0.28)</span>
-                                            <span class="text-gray-400">4 modèles</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <div class="text-2xl font-bold">σ 0.31</div>
+                                <div class="text-xs text-gray-400">Consensus</div>
                             </div>
-                            <div class="w-24">
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="progress-bar h-full rounded-full" style="width: 65%"></div>
-                                </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">65% complet</div>
-                            </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
                         </div>
                     </div>
 
-                    <!-- AO Row 2 -->
-                    <div onclick="openAODetail('ao2')" class="p-6 hover:bg-gray-50 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-semibold text-lg">Migration Cloud Souverain — BNP Paribas</h3>
-                                    <span
-                                        class="bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full">GO
-                                        Recommandé</span>
-                                </div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="building" class="w-4 h-4"></i>
-                                        BNP Paribas
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="euro" class="w-4 h-4"></i>
-                                        4.8M€
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                                        Deadline: 22 Feb
-                                    </span>
-                                </div>
+                    <!-- Urgent Actions -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+                        <h3 class="font-semibold text-sm mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i>
+                            Actions Urgentes
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span class="flex-1">Deadline Carrefour dans 11j</span>
                             </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-brand-accent">9.1/10</div>
-                                <div class="text-xs text-gray-500">Score Pertinence</div>
+                            <div class="flex items-center gap-2 p-2 bg-yellow-50 rounded">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                                <span class="flex-1">TotalEnergies à évaluer</span>
                             </div>
-                            <div class="w-24">
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="progress-bar h-full rounded-full" style="width: 40%"></div>
-                                </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">40% complet</div>
+                            <div class="flex items-center gap-2 p-2 bg-blue-50 rounded">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span class="flex-1">3 nouveaux AO cette semaine</span>
                             </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
                         </div>
                     </div>
 
-                    <!-- AO Row 3 -->
-                    <div onclick="openAODetail('ao3')" class="p-6 hover:bg-gray-50 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-semibold text-lg">Plateforme Data Analytics — TotalEnergies</h3>
-                                    <span
-                                        class="bg-yellow-100 text-yellow-700 text-xs font-medium px-2.5 py-1 rounded-full">À
-                                        Évaluer</span>
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+                        <h3 class="font-semibold text-sm mb-3">Activité Récente</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-3 h-3 text-green-600"></i>
                                 </div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="building" class="w-4 h-4"></i>
-                                        TotalEnergies
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="euro" class="w-4 h-4"></i>
-                                        1.2M€
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                                        Deadline: 28 Feb
-                                    </span>
+                                <span class="flex-1 text-gray-600">AO Carrefour validé GO</span>
+                                <span class="text-gray-400">2h</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="file-text" class="w-3 h-3 text-blue-600"></i>
                                 </div>
+                                <span class="flex-1 text-gray-600">Draft BNP généré</span>
+                                <span class="text-gray-400">4h</span>
                             </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-brand-warning">6.4/10</div>
-                                <div class="text-xs text-gray-500">Score Pertinence</div>
-                            </div>
-                            <div class="w-24">
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="progress-bar h-full rounded-full" style="width: 15%"></div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="upload" class="w-3 h-3 text-purple-600"></i>
                                 </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">15% complet</div>
+                                <span class="flex-1 text-gray-600">Nouvel AO importé</span>
+                                <span class="text-gray-400">6h</span>
                             </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-                        </div>
-                    </div>
-
-                    <!-- AO Row 4 -->
-                    <div onclick="openAODetail('ao4')" class="p-6 hover:bg-gray-50 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-semibold text-lg">Modernisation ERP — Société Générale</h3>
-                                    <span
-                                        class="bg-red-100 text-red-700 text-xs font-medium px-2.5 py-1 rounded-full">NO-GO
-                                        Suggéré</span>
-                                </div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="building" class="w-4 h-4"></i>
-                                        Société Générale
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="euro" class="w-4 h-4"></i>
-                                        3.2M€
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                                        Deadline: 10 Feb
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-brand-danger">4.2/10</div>
-                                <div class="text-xs text-gray-500">Score Pertinence</div>
-                            </div>
-                            <div class="w-24">
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="progress-bar h-full rounded-full" style="width: 10%"></div>
-                                </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">10% complet</div>
-                            </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-                        </div>
-                    </div>
-
-                    <!-- AO Row 5 -->
-                    <div onclick="openAODetail('ao5')" class="p-6 hover:bg-gray-50 cursor-pointer transition-colors">
-                        <div class="flex items-center gap-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-semibold text-lg">Cybersécurité Zero Trust — Airbus</h3>
-                                    <span
-                                        class="bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full">GO
-                                        Recommandé</span>
-                                </div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="building" class="w-4 h-4"></i>
-                                        Airbus Defence
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="euro" class="w-4 h-4"></i>
-                                        5.6M€
-                                    </span>
-                                    <span class="flex items-center gap-1">
-                                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                                        Deadline: 1 Mar
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-brand-accent">8.9/10</div>
-                                <div class="text-xs text-gray-500">Score Pertinence</div>
-                            </div>
-                            <div class="w-24">
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="progress-bar h-full rounded-full" style="width: 25%"></div>
-                                </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">25% complet</div>
-                            </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
                         </div>
                     </div>
                 </div>
@@ -511,56 +364,19 @@
 
     <!-- Upload Modal -->
     <div id="uploadModal" class="modal fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center">
-        <div class="bg-white rounded-2xl w-full max-w-xl mx-4 shadow-2xl">
-            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
-                <h3 class="text-xl font-bold">Analyser un nouvel Appel d'Offres</h3>
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 shadow-2xl">
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                <h3 class="font-bold">Analyser un nouvel AO</h3>
                 <button onclick="closeUploadModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
-                    <i data-lucide="x" class="w-6 h-6"></i>
+                    <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <div class="p-6">
-                <div id="uploadZone"
-                    class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-brand-primary hover:bg-brand-primary/5 transition-all cursor-pointer"
-                    onclick="simulateUpload()">
-                    <i data-lucide="upload-cloud" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
-                    <h4 class="font-semibold text-lg mb-2">Glissez-déposez votre fichier RFP</h4>
-                    <p class="text-gray-500 mb-4">PDF, Word, Excel acceptés (max 50MB)</p>
-                    <span class="text-brand-primary font-medium">ou cliquez pour parcourir</span>
-                </div>
-
-                <!-- Processing State (hidden by default) -->
-                <div id="processingState" class="hidden">
-                    <div class="text-center py-8">
-                        <div
-                            class="w-16 h-16 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-6">
-                        </div>
-                        <h4 class="font-semibold text-lg mb-2">Analyse en cours...</h4>
-                        <p class="text-gray-500" id="processingStep">Extraction des exigences</p>
-                        <div class="mt-6 space-y-2 text-left max-w-sm mx-auto">
-                            <div class="flex items-center gap-3 text-sm">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
-                                <span>Document uploadé</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm processing-step">
-                                <div
-                                    class="w-5 h-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin">
-                                </div>
-                                <span>Extraction des exigences...</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-gray-400 pending-step">
-                                <i data-lucide="circle" class="w-5 h-5"></i>
-                                <span>Analyse des critères</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-gray-400 pending-step">
-                                <i data-lucide="circle" class="w-5 h-5"></i>
-                                <span>Recherche RAG références</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-gray-400 pending-step">
-                                <i data-lucide="circle" class="w-5 h-5"></i>
-                                <span>Scoring LLM-as-Judge</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="p-4">
+                <div
+                    class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-brand-primary hover:bg-brand-primary/5 transition-all cursor-pointer">
+                    <i data-lucide="upload-cloud" class="w-12 h-12 text-gray-400 mx-auto mb-3"></i>
+                    <h4 class="font-semibold mb-1">Glissez-déposez votre RFP</h4>
+                    <p class="text-gray-500 text-sm">PDF, Word, Excel (max 50MB)</p>
                 </div>
             </div>
         </div>
@@ -568,337 +384,158 @@
 
     <!-- AO Detail Modal -->
     <div id="aoDetailModal"
-        class="modal fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center overflow-y-auto py-8">
-        <div class="bg-white rounded-2xl w-full max-w-5xl mx-4 shadow-2xl my-auto">
+        class="modal fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center overflow-y-auto py-4">
+        <div class="bg-white rounded-xl w-full max-w-4xl mx-4 shadow-2xl my-auto">
             <div
-                class="p-6 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white rounded-t-2xl z-10">
+                class="p-4 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white rounded-t-xl z-10">
                 <div>
-                    <div class="flex items-center gap-3">
-                        <h3 class="text-xl font-bold">Transformation SI Retail — Carrefour</h3>
-                        <span class="bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full">GO
-                            Recommandé</span>
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-bold">Transformation SI Retail — Carrefour</h3>
+                        <span
+                            class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">GO</span>
                     </div>
-                    <p class="text-gray-500 text-sm mt-1">AO-2026-0142 • Reçu le 28 Jan 2026</p>
+                    <p class="text-gray-500 text-xs mt-0.5">AO-2026-0142 • Deadline: 15 Feb 2026</p>
                 </div>
                 <button onclick="closeAODetail()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
-                    <i data-lucide="x" class="w-6 h-6"></i>
+                    <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <div class="p-6 grid lg:grid-cols-3 gap-6">
+            <div class="p-4 grid grid-cols-3 gap-4">
                 <!-- Main Content -->
-                <div class="lg:col-span-2 space-y-6">
+                <div class="col-span-2 space-y-4">
                     <!-- Score Summary -->
-                    <div class="bg-gradient-to-r from-brand-dark to-slate-800 rounded-xl p-6 text-white">
-                        <div class="flex items-center justify-between mb-6">
-                            <h4 class="font-semibold text-lg flex items-center gap-2">
-                                <i data-lucide="brain" class="w-5 h-5 text-brand-accent"></i>
-                                Analyse IA Complète
+                    <div class="bg-gradient-to-r from-brand-dark to-slate-800 rounded-lg p-4 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-semibold text-sm flex items-center gap-2">
+                                <i data-lucide="brain" class="w-4 h-4 text-brand-accent"></i>
+                                Analyse IA
                             </h4>
                             <button
-                                class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer">
-                                <i data-lucide="pencil" class="w-3 h-3"></i>
-                                Override
+                                class="text-xs bg-white/10 hover:bg-white/20 px-2 py-1 rounded flex items-center gap-1 cursor-pointer">
+                                <i data-lucide="pencil" class="w-3 h-3"></i>Override
                             </button>
                         </div>
-
-                        <div class="grid grid-cols-4 gap-4 mb-6">
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-brand-accent">8.6</div>
-                                <div class="text-xs text-gray-400">Score Global</div>
+                        <div class="grid grid-cols-4 gap-3 text-center mb-4">
+                            <div>
+                                <div class="text-2xl font-bold text-brand-accent">8.6</div>
+                                <div class="text-xs text-gray-400">Global</div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold">9.2</div>
+                            <div>
+                                <div class="text-2xl font-bold">9.2</div>
                                 <div class="text-xs text-gray-400">Adéquation</div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold">8.1</div>
+                            <div>
+                                <div class="text-2xl font-bold">8.1</div>
                                 <div class="text-xs text-gray-400">Faisabilité</div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold">8.4</div>
+                            <div>
+                                <div class="text-2xl font-bold">8.4</div>
                                 <div class="text-xs text-gray-400">Rentabilité</div>
                             </div>
                         </div>
-
-                        <!-- LLM Votes -->
-                        <div class="bg-white/5 rounded-lg p-4">
-                            <div class="text-xs text-gray-400 mb-3">Verdict LLM-as-Judge (4 modèles)</div>
-                            <div class="grid grid-cols-4 gap-3 text-sm">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                    <span>Claude 3.5</span>
-                                    <span class="ml-auto font-semibold">8.8</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                    <span>GPT-4o</span>
-                                    <span class="ml-auto font-semibold">8.5</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
-                                    <span>Mistral</span>
-                                    <span class="ml-auto font-semibold">8.2</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                    <span>Llama 3.2</span>
-                                    <span class="ml-auto font-semibold">8.9</span>
-                                </div>
+                        <div class="bg-white/5 rounded p-3">
+                            <div class="text-xs text-gray-400 mb-2">LLM-as-Judge (4 modèles)</div>
+                            <div class="grid grid-cols-4 gap-2 text-xs">
+                                <div class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>Claude <span
+                                        class="ml-auto font-semibold">8.8</span></div>
+                                <div class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>GPT-4o <span
+                                        class="ml-auto font-semibold">8.5</span></div>
+                                <div class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>Mistral <span
+                                        class="ml-auto font-semibold">8.2</span></div>
+                                <div class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>Llama <span
+                                        class="ml-auto font-semibold">8.9</span></div>
                             </div>
-                            <div class="text-xs text-gray-400 mt-3">Consensus : Fort (σ = 0.28)</div>
+                            <div class="text-xs text-gray-400 mt-2">Consensus : Fort (σ = 0.28)</div>
                         </div>
                     </div>
 
                     <!-- RAG Insights -->
-                    <div class="bg-white border border-gray-200 rounded-xl p-6">
-                        <h4 class="font-semibold text-lg mb-4 flex items-center gap-2">
-                            <i data-lucide="database" class="w-5 h-5 text-brand-primary"></i>
-                            Références RAG (Base de Savoir)
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-sm mb-3 flex items-center gap-2">
+                            <i data-lucide="database" class="w-4 h-4 text-brand-primary"></i>
+                            Références RAG
                         </h4>
-
-                        <div class="space-y-4">
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5"></i>
-                                    <div>
-                                        <div class="font-semibold text-green-800">Mission ERP Retail — Auchan (2024)
-                                        </div>
-                                        <p class="text-sm text-green-700 mt-1">Projet similaire : 14 mois, budget 1.8M€,
-                                            satisfaction client 98%. Équipe de 8 consultants.</p>
-                                        <div class="text-xs text-green-600 mt-2">Pertinence : 94% • Contact : Pierre
-                                            Durand (Lead Architect)</div>
-                                    </div>
-                                </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-green-50 border border-green-200 rounded p-3">
+                                <div class="font-semibold text-green-800">Mission ERP Retail — Auchan (2024)</div>
+                                <p class="text-green-700 mt-1">Projet similaire : 14 mois, 1.8M€, satisfaction 98%</p>
+                                <div class="text-green-600 mt-1">Pertinence : 94% • Contact : Pierre Durand</div>
                             </div>
-
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5"></i>
-                                    <div>
-                                        <div class="font-semibold text-green-800">Transformation Digitale — Casino Group
-                                            (2023)</div>
-                                        <p class="text-sm text-green-700 mt-1">Migration cloud + modernisation SI.
-                                            Références secteur retail validées.</p>
-                                        <div class="text-xs text-green-600 mt-2">Pertinence : 87% • Contact : Marie
-                                            Lambert (Partner)</div>
-                                    </div>
-                                </div>
+                            <div class="bg-green-50 border border-green-200 rounded p-3">
+                                <div class="font-semibold text-green-800">Transformation — Casino Group (2023)</div>
+                                <p class="text-green-700 mt-1">Migration cloud + modernisation SI. Références secteur
+                                    validées.</p>
+                                <div class="text-green-600 mt-1">Pertinence : 87% • Contact : Marie Lambert</div>
                             </div>
-
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="users" class="w-5 h-5 text-blue-600 mt-0.5"></i>
-                                    <div>
-                                        <div class="font-semibold text-blue-800">Experts Disponibles Identifiés</div>
-                                        <p class="text-sm text-blue-700 mt-1">3 consultants SAP S/4HANA certifiés • 2
-                                            architectes cloud AWS • 1 expert sécurité retail</p>
-                                        <div class="text-xs text-blue-600 mt-2">Disponibilité confirmée période Feb-Août
-                                            2026</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Generated Draft Preview -->
-                    <div class="bg-white border border-gray-200 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 class="font-semibold text-lg flex items-center gap-2">
-                                <i data-lucide="file-text" class="w-5 h-5 text-brand-primary"></i>
-                                Draft Réponse Généré
-                            </h4>
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm text-gray-500">65% complété</span>
-                                <button
-                                    class="text-sm bg-brand-primary text-white px-3 py-1.5 rounded-lg hover:bg-brand-primary/90 cursor-pointer">
-                                    Éditer
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="bg-gray-50 rounded-lg p-4 text-sm space-y-4 max-h-64 overflow-y-auto">
-                            <div>
-                                <div class="font-semibold text-brand-primary">1. Présentation de l'équipe</div>
-                                <p class="text-gray-600 mt-1">Notre équipe projet sera composée de 8 consultants seniors
-                                    spécialisés dans la transformation SI retail, menée par Pierre Durand (Lead
-                                    Architect) avec plus de 15 ans d'expérience...</p>
-                            </div>
-                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
-                                <div class="font-semibold text-yellow-800 flex items-center gap-2">
-                                    <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                                    Section à valider par un expert
-                                </div>
-                                <p class="text-yellow-700 text-sm mt-1">Planning détaillé phase 2 — nécessite validation
-                                    technique</p>
-                            </div>
-                            <div>
-                                <div class="font-semibold text-brand-primary">2. Références clients</div>
-                                <p class="text-gray-600 mt-1">Mission comparable réalisée pour Auchan (2024) avec un
-                                    budget similaire et un taux de satisfaction de 98%...</p>
+                            <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                                <div class="font-semibold text-blue-800">Experts Disponibles</div>
+                                <p class="text-blue-700 mt-1">3 consultants SAP certifiés • 2 architectes AWS •
+                                    Disponibilité confirmée Feb-Août 2026</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Key Info -->
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h4 class="font-semibold mb-4">Informations Clés</h4>
-                        <div class="space-y-3 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">Client</span>
-                                <span class="font-medium">Carrefour France</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">Budget estimé</span>
-                                <span class="font-medium">2.4M€</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">Durée</span>
-                                <span class="font-medium">18 mois</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">Deadline</span>
-                                <span class="font-medium text-red-600">15 Feb 2026</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">Secteur</span>
-                                <span class="font-medium">Retail / GMS</span>
-                            </div>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-sm mb-3">Infos Clés</h4>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between"><span class="text-gray-500">Client</span><span
+                                    class="font-medium">Carrefour France</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Budget</span><span
+                                    class="font-medium">2.4M€</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Durée</span><span
+                                    class="font-medium">18 mois</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Deadline</span><span
+                                    class="font-medium text-red-600">15 Feb 2026</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Secteur</span><span
+                                    class="font-medium">Retail / GMS</span></div>
                         </div>
                     </div>
-
-                    <!-- Criteria Scores -->
-                    <div class="bg-white border border-gray-200 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 class="font-semibold">Critères d'Évaluation</h4>
-                            <button
-                                class="text-xs text-brand-primary hover:underline cursor-pointer flex items-center gap-1">
-                                <i data-lucide="pencil" class="w-3 h-3"></i>
-                                Override
-                            </button>
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-sm mb-3">Draft Réponse</h4>
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="flex-1 h-2 bg-gray-200 rounded-full">
+                                <div class="progress-bar h-full rounded-full" style="width: 65%"></div>
+                            </div>
+                            <span class="text-xs text-gray-500">65%</span>
                         </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Conformité RGPD</span>
-                                    <span class="font-medium text-green-600">9.5/10</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-green-500 rounded-full" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Références secteur</span>
-                                    <span class="font-medium text-green-600">9.2/10</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-green-500 rounded-full" style="width: 92%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Disponibilité équipe</span>
-                                    <span class="font-medium text-green-600">8.8/10</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-green-500 rounded-full" style="width: 88%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Marge prévisionnelle</span>
-                                    <span class="font-medium text-yellow-600">7.2/10</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-yellow-500 rounded-full" style="width: 72%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Alignement stratégique</span>
-                                    <span class="font-medium text-green-600">8.5/10</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-green-500 rounded-full" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="space-y-3">
                         <button
-                            class="w-full bg-brand-accent text-white py-3 rounded-xl font-semibold hover:bg-brand-accent/90 transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                            <i data-lucide="check" class="w-5 h-5"></i>
-                            Valider GO
-                        </button>
-                        <button
-                            class="w-full bg-white border border-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                            <i data-lucide="edit-3" class="w-5 h-5"></i>
-                            Éditer la réponse
-                        </button>
-                        <button
-                            class="w-full bg-white border border-red-200 text-red-600 py-3 rounded-xl font-semibold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                            <i data-lucide="x" class="w-5 h-5"></i>
-                            Marquer NO-GO
-                        </button>
+                            class="w-full text-sm bg-brand-primary text-white px-3 py-2 rounded-lg hover:bg-brand-primary/90 cursor-pointer">Éditer
+                            le draft</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Initialize Lucide Icons -->
     <script>
         lucide.createIcons();
 
         function openUploadModal() {
             document.getElementById('uploadModal').classList.add('active');
-            document.getElementById('uploadZone').classList.remove('hidden');
-            document.getElementById('processingState').classList.add('hidden');
         }
-
         function closeUploadModal() {
             document.getElementById('uploadModal').classList.remove('active');
         }
-
-        function simulateUpload() {
-            document.getElementById('uploadZone').classList.add('hidden');
-            document.getElementById('processingState').classList.remove('hidden');
-
-            // Simulate processing steps
-            setTimeout(() => {
-                closeUploadModal();
-                openAODetail('new');
-            }, 3000);
-        }
-
-        function openAODetail(aoId) {
+        function openAODetail() {
             document.getElementById('aoDetailModal').classList.add('active');
         }
-
         function closeAODetail() {
             document.getElementById('aoDetailModal').classList.remove('active');
         }
 
-        // Close modals on escape
-        document.addEventListener('keydown', function (e) {
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeUploadModal();
                 closeAODetail();
             }
-        });
-
-        // Close modals on backdrop click
-        document.getElementById('uploadModal').addEventListener('click', function (e) {
-            if (e.target === this) closeUploadModal();
-        });
-        document.getElementById('aoDetailModal').addEventListener('click', function (e) {
-            if (e.target === this) closeAODetail();
         });
     </script>
 </body>

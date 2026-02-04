@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BidBooster — Répondez à 100% de vos appels d'offres</title>
-    <meta name="description" content="BidBooster : le copilote IA qui transforme votre avant-vente. -60% de temps, +20% de taux de succès.">
-    
+    <meta name="description"
+        content="BidBooster : le copilote IA qui transforme votre avant-vente. -60% de temps, +20% de taux de succès.">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -29,63 +31,101 @@
             }
         }
     </script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Outfit', sans-serif;
         }
+
         .gradient-hero {
             background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
         }
+
         .gradient-accent {
             background: linear-gradient(135deg, #0A66C2 0%, #00B389 100%);
         }
+
         .card-hover {
             transition: all 0.3s ease;
         }
+
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(10, 102, 194, 0.15);
         }
+
         .stat-card {
             background: linear-gradient(135deg, rgba(10, 102, 194, 0.05) 0%, rgba(0, 179, 137, 0.05) 100%);
         }
+
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
+
 <body class="bg-brand-surface text-brand-dark">
-    
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-10">
-                </div>
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#probleme" class="text-gray-600 hover:text-brand-primary transition-colors">Problème</a>
-                    <a href="#solution" class="text-gray-600 hover:text-brand-primary transition-colors">Solution</a>
-                    <a href="#roi" class="text-gray-600 hover:text-brand-primary transition-colors">ROI</a>
-                    <a href="dashboard.html" class="bg-brand-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-brand-primary/90 transition-colors cursor-pointer">
-                        Voir la Démo
+
+    <!-- Navigation - Floating Premium -->
+    <nav class="fixed top-4 left-4 right-4 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/5 border border-gray-200/50 px-6 py-3">
+                <div class="flex items-center justify-between">
+                    <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                        <img src="logos/BidBooster.png" alt="BidBooster"
+                            class="h-9 transition-transform group-hover:scale-105">
                     </a>
+                    <div class="hidden md:flex items-center gap-2">
+                        <a href="#probleme"
+                            class="px-4 py-2 text-gray-600 hover:text-brand-primary hover:bg-brand-primary/5 rounded-lg transition-all font-medium text-sm cursor-pointer">Problème</a>
+                        <a href="#solution"
+                            class="px-4 py-2 text-gray-600 hover:text-brand-primary hover:bg-brand-primary/5 rounded-lg transition-all font-medium text-sm cursor-pointer">Solution</a>
+                        <a href="#roi"
+                            class="px-4 py-2 text-gray-600 hover:text-brand-primary hover:bg-brand-primary/5 rounded-lg transition-all font-medium text-sm cursor-pointer">ROI</a>
+                        <div class="w-px h-6 bg-gray-200 mx-2"></div>
+                        <a href="#" onclick="openSSOModal(); return false;"
+                            class="bg-brand-primary text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-brand-primary/90 transition-all hover:shadow-lg hover:shadow-brand-primary/25 cursor-pointer flex items-center gap-2 text-sm">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                            Voir la Démo
+                        </a>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button
+                        class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -104,15 +144,18 @@
                         Répondez à <span class="text-brand-accent">100%</span> de vos appels d'offres pertinents
                     </h1>
                     <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-                        BidBooster est le copilote IA qui transforme votre avant-vente en <strong class="text-white">actif logiciel scalable</strong>. 
+                        BidBooster est le copilote IA qui transforme votre avant-vente en <strong
+                            class="text-white">actif logiciel scalable</strong>.
                         Analysez, générez, capitalisez — automatiquement.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="dashboard.html" class="gradient-accent text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-2">
+                        <a href="#" onclick="openSSOModal(); return false;"
+                            class="gradient-accent text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-2">
                             <i data-lucide="play" class="w-5 h-5"></i>
                             Voir la Démo Live
                         </a>
-                        <a href="#roi" class="border border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center gap-2">
+                        <a href="#roi"
+                            class="border border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center gap-2">
                             <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
                             Calculer mon ROI
                         </a>
@@ -120,7 +163,8 @@
                 </div>
                 <div class="relative">
                     <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 animate-float">
-                        <img src="https://placehold.co/600x400/1E293B/00B389?text=Dashboard+Preview" alt="Dashboard BidBooster" class="rounded-xl w-full">
+                        <img src="https://placehold.co/600x400/1E293B/00B389?text=Dashboard+Preview"
+                            alt="Dashboard BidBooster" class="rounded-xl w-full">
                     </div>
                     <!-- Floating Stats -->
                     <div class="absolute -left-4 top-1/4 bg-white rounded-xl p-4 shadow-xl">
@@ -157,10 +201,11 @@
                 <span class="text-brand-primary font-semibold uppercase tracking-wider text-sm">Le Problème</span>
                 <h2 class="text-4xl font-bold mt-4 mb-6">L'avant-vente est un goulot d'étranglement stratégique</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Les grandes organisations perdent des opportunités majeures faute de capacité à répondre efficacement à tous les appels d'offres.
+                    Les grandes organisations perdent des opportunités majeures faute de capacité à répondre
+                    efficacement à tous les appels d'offres.
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Pain Point 1 -->
                 <div class="bg-red-50 border border-red-100 rounded-2xl p-6 card-hover cursor-pointer">
@@ -168,10 +213,11 @@
                         <i data-lucide="clock" class="w-6 h-6 text-red-600"></i>
                     </div>
                     <h3 class="font-bold text-lg mb-2">Temps de réponse long</h3>
-                    <p class="text-gray-600">Des semaines pour produire une réponse. Le délai tue la réactivité commerciale.</p>
+                    <p class="text-gray-600">Des semaines pour produire une réponse. Le délai tue la réactivité
+                        commerciale.</p>
                     <div class="mt-4 text-red-600 font-semibold">3-4 semaines en moyenne</div>
                 </div>
-                
+
                 <!-- Pain Point 2 -->
                 <div class="bg-orange-50 border border-orange-100 rounded-2xl p-6 card-hover cursor-pointer">
                     <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
@@ -181,7 +227,7 @@
                     <p class="text-gray-600">Chaque réponse mobilise des experts seniors pendant des jours.</p>
                     <div class="mt-4 text-orange-600 font-semibold">15-50k€ par réponse</div>
                 </div>
-                
+
                 <!-- Pain Point 3 -->
                 <div class="bg-yellow-50 border border-yellow-100 rounded-2xl p-6 card-hover cursor-pointer">
                     <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
@@ -191,7 +237,7 @@
                     <p class="text-gray-600">Les mêmes 5 personnes sollicitées sur chaque AO. Risque de burnout.</p>
                     <div class="mt-4 text-yellow-600 font-semibold">5 experts clés max</div>
                 </div>
-                
+
                 <!-- Pain Point 4 -->
                 <div class="bg-purple-50 border border-purple-100 rounded-2xl p-6 card-hover cursor-pointer">
                     <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
@@ -212,10 +258,11 @@
                 <span class="text-brand-accent font-semibold uppercase tracking-wider text-sm">La Solution</span>
                 <h2 class="text-4xl font-bold mt-4 mb-6">BidBooster : Votre copilote IA d'avant-vente</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Une plateforme agentique qui automatise l'analyse, la génération et la capitalisation — en gardant l'humain aux commandes.
+                    Une plateforme agentique qui automatise l'analyse, la génération et la capitalisation — en gardant
+                    l'humain aux commandes.
                 </p>
             </div>
-            
+
             <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer">
@@ -224,7 +271,8 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">Analyse Intelligente</h3>
                     <p class="text-gray-600 mb-4">
-                        Upload un RFP (PDF, Word, Excel) et obtenez en secondes : exigences, critères, risques, recommandation Go/No-Go.
+                        Upload un RFP (PDF, Word, Excel) et obtenez en secondes : exigences, critères, risques,
+                        recommandation Go/No-Go.
                     </p>
                     <ul class="space-y-2">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
@@ -241,7 +289,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <!-- Feature 2 -->
                 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer">
                     <div class="w-14 h-14 gradient-accent rounded-xl flex items-center justify-center mb-6">
@@ -249,7 +297,8 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">Génération Assistée</h3>
                     <p class="text-gray-600 mb-4">
-                        Premier draft complet généré automatiquement. Enrichi par votre base de connaissances et vos références.
+                        Premier draft complet généré automatiquement. Enrichi par votre base de connaissances et vos
+                        références.
                     </p>
                     <ul class="space-y-2">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
@@ -266,7 +315,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <!-- Feature 3 -->
                 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer">
                     <div class="w-14 h-14 gradient-accent rounded-xl flex items-center justify-center mb-6">
@@ -274,7 +323,8 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">Capitalisation Continue</h3>
                     <p class="text-gray-600 mb-4">
-                        Chaque réponse enrichit votre base de connaissances. Plus vous utilisez BidBooster, plus il devient performant.
+                        Chaque réponse enrichit votre base de connaissances. Plus vous utilisez BidBooster, plus il
+                        devient performant.
                     </p>
                     <ul class="space-y-2">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
@@ -292,7 +342,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Human in the Loop Banner -->
             <div class="mt-12 bg-gradient-to-r from-brand-dark to-slate-800 rounded-2xl p-8 text-white">
                 <div class="flex flex-col lg:flex-row items-center gap-8">
@@ -304,12 +354,13 @@
                     <div class="flex-1 text-center lg:text-left">
                         <h3 class="text-2xl font-bold mb-2">L'humain reste aux commandes</h3>
                         <p class="text-gray-300">
-                            Chaque décision peut être overridée. Chaque score peut être modifié. 
+                            Chaque décision peut être overridée. Chaque score peut être modifié.
                             Vos experts interviennent là où ils créent le plus de valeur.
                         </p>
                     </div>
                     <div class="flex-shrink-0">
-                        <a href="dashboard.html" class="bg-brand-warning text-brand-dark px-6 py-3 rounded-xl font-semibold hover:bg-brand-warning/90 transition-colors cursor-pointer inline-flex items-center gap-2">
+                        <a href="#" onclick="openSSOModal(); return false;"
+                            class="bg-brand-warning text-brand-dark px-6 py-3 rounded-xl font-semibold hover:bg-brand-warning/90 transition-colors cursor-pointer inline-flex items-center gap-2">
                             <i data-lucide="play" class="w-5 h-5"></i>
                             Voir en action
                         </a>
@@ -326,10 +377,11 @@
                 <span class="text-brand-primary font-semibold uppercase tracking-wider text-sm">Impact Mesurable</span>
                 <h2 class="text-4xl font-bold mt-4 mb-6">ROI inférieur à 6 mois</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Des résultats concrets, mesurables, vérifiables. BidBooster transforme l'avant-vente en avantage compétitif.
+                    Des résultats concrets, mesurables, vérifiables. BidBooster transforme l'avant-vente en avantage
+                    compétitif.
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Stat 1 -->
                 <div class="stat-card rounded-2xl p-8 text-center border border-brand-primary/10">
@@ -337,21 +389,21 @@
                     <div class="text-lg font-semibold mb-1">Temps de production</div>
                     <div class="text-gray-500 text-sm">Par appel d'offres</div>
                 </div>
-                
+
                 <!-- Stat 2 -->
                 <div class="stat-card rounded-2xl p-8 text-center border border-brand-accent/10">
                     <div class="text-5xl font-bold text-brand-accent mb-2">-50%</div>
                     <div class="text-lg font-semibold mb-1">Coûts d'avant-vente</div>
                     <div class="text-gray-500 text-sm">Réduction annuelle</div>
                 </div>
-                
+
                 <!-- Stat 3 -->
                 <div class="stat-card rounded-2xl p-8 text-center border border-brand-warning/10">
                     <div class="text-5xl font-bold text-brand-warning mb-2">+20%</div>
                     <div class="text-lg font-semibold mb-1">Taux de succès</div>
                     <div class="text-gray-500 text-sm">Amélioration moyenne</div>
                 </div>
-                
+
                 <!-- Stat 4 -->
                 <div class="stat-card rounded-2xl p-8 text-center border border-purple-500/10">
                     <div class="text-5xl font-bold text-purple-600 mb-2">100%</div>
@@ -371,7 +423,8 @@
             <p class="text-2xl text-brand-accent font-semibold mb-8">
                 C'est désormais un problème logiciel.
             </p>
-            <a href="dashboard.html" class="gradient-accent text-white px-10 py-5 rounded-xl font-semibold text-xl hover:opacity-90 transition-opacity cursor-pointer inline-flex items-center gap-3">
+            <a href="#" onclick="openSSOModal(); return false;"
+                class="gradient-accent text-white px-10 py-5 rounded-xl font-semibold text-xl hover:opacity-90 transition-opacity cursor-pointer inline-flex items-center gap-3">
                 <i data-lucide="rocket" class="w-6 h-6"></i>
                 Découvrir BidBooster
             </a>
@@ -400,9 +453,91 @@
         </div>
     </footer>
 
+    <!-- SSO Login Modal -->
+    <div id="ssoModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] items-center justify-center hidden"
+        style="display: none;">
+        <div class="bg-white rounded-2xl w-full max-w-md mx-4 shadow-2xl overflow-hidden">
+            <!-- Header with Accenture branding -->
+            <div class="bg-gradient-to-r from-[#A100FF] to-[#7B00C4] p-6 text-white text-center">
+                <div class="w-16 h-16 bg-white rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                    <span class="text-[#A100FF] font-bold text-xl">A&gt;</span>
+                </div>
+                <h3 class="text-xl font-bold">Connexion Entreprise</h3>
+                <p class="text-white/80 text-sm mt-1">Accenture Single Sign-On</p>
+            </div>
+
+            <!-- Content -->
+            <div id="sso-content" class="p-6">
+                <div class="flex items-center gap-4 bg-gray-50 rounded-xl p-4 mb-6">
+                    <div class="w-12 h-12 bg-[#A100FF]/10 rounded-full flex items-center justify-center">
+                        <span class="text-[#A100FF] font-bold">JM</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-gray-900">Julie Martin</div>
+                        <div class="text-sm text-gray-500">julie.martin@accenture.com</div>
+                    </div>
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 ml-auto"></i>
+                </div>
+
+                <div class="text-center text-sm text-gray-500 mb-6">
+                    <i data-lucide="shield-check" class="w-4 h-4 inline mr-1 text-green-500"></i>
+                    Session SSO active • Dernière connexion il y a 2h
+                </div>
+
+                <button onclick="connectSSO()"
+                    class="w-full bg-[#A100FF] text-white py-3 rounded-xl font-semibold hover:bg-[#8A00DB] transition-colors cursor-pointer flex items-center justify-center gap-2">
+                    <i data-lucide="log-in" class="w-5 h-5"></i>
+                    Continuer vers BidBooster
+                </button>
+
+                <div class="mt-4 text-center">
+                    <a href="#" onclick="closeSSOModal(); return false;"
+                        class="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">Utiliser un autre compte</a>
+                </div>
+            </div>
+
+            <!-- Loading state (hidden by default) -->
+            <div id="sso-loading" class="p-6 hidden">
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 border-4 border-[#A100FF]/20 border-t-[#A100FF] rounded-full animate-spin mx-auto mb-4">
+                    </div>
+                    <div class="font-semibold text-gray-900 mb-1">Connexion en cours...</div>
+                    <div class="text-sm text-gray-500">Vérification des autorisations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #ssoModal.active {
+            display: flex !important;
+        }
+    </style>
+
     <!-- Initialize Lucide Icons -->
     <script>
         lucide.createIcons();
+
+        // SSO Modal
+        function openSSOModal() {
+            document.getElementById('ssoModal').classList.add('active');
+            lucide.createIcons();
+        }
+        function closeSSOModal() {
+            document.getElementById('ssoModal').classList.remove('active');
+        }
+        function connectSSO() {
+            document.getElementById('sso-content').classList.add('hidden');
+            document.getElementById('sso-loading').classList.remove('hidden');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSSOModal();
+        });
     </script>
 </body>
+
 </html>
