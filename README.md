@@ -10,6 +10,9 @@ BidBooster est une **démo fonctionnelle** d'un SaaS IA dédié à l'automatisat
 
 ⚠️ **Disclaimer** : Il s'agit d'une démo de démonstration. Toutes les données, clients et chiffres présentés sont **100% fictifs**.
 
+## Consultation
+Le temps de la foramtion, le site restera visible ici : https://msit-bid-booster.pages.dev/
+
 ## ✨ Fonctionnalités Démontrées
 
 ### Landing Page (`index.html`)
