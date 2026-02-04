@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidBooster — Architecture Technique</title>
+    <meta name="description"
+        content="Découvrez l'architecture souveraine et robuste de BidBooster : LLM open source, hébergement européen, IA augmentée par l'humain.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#0A66C2',
+                            accent: '#00B389',
+                            warning: '#F59E0B',
+                            dark: '#0F172A',
+                            surface: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Mermaid -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .gradient-hero {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, #0A66C2 0%, #00B389 100%);
+        }
+
+        .flow-card {
+            position: relative;
+        }
+
+        .flow-card::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, #0A66C2, #00B389);
+        }
+
+        .flow-card:last-child::after {
+            display: none;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, rgba(10, 102, 194, 0.1) 0%, rgba(0, 179, 137, 0.1) 100%);
+            border: 1px solid rgba(10, 102, 194, 0.2);
+        }
+
+        .human-glow {
+            box-shadow: 0 0 60px rgba(0, 179, 137, 0.3);
+        }
+
+        .sovereign-badge {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+        }
+
+        /* Mermaid custom styling */
+        .mermaid {
+            background: transparent !important;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-surface text-brand-dark">
+
+    <!-- Navigation -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-lg border border-gray-200/50 px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-8">
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm">
+                    <a href="index.html" class="text-gray-600 hover:text-brand-primary transition-colors">Accueil</a>
+                    <a href="technologie.html" class="text-brand-primary font-medium">Technologie</a>
+                    <a href="dashboard.html" class="text-gray-600 hover:text-brand-primary transition-colors">Démo</a>
+                </div>
+                <a href="dashboard.html"
+                    class="gradient-accent text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer">
+                    Voir la démo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="gradient-hero pt-32 pb-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-brand-accent text-sm font-medium mb-6">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                Architecture Souveraine & Robuste
+            </div>
+            <h1 class="text-4xl lg:text-6xl font-bold text-white mb-6">
+                Une IA qui <span class="text-brand-accent">augmente</span> l'humain,<br>
+                pas qui le remplace
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Découvrez comment BidBooster combine intelligence artificielle open source,
+                hébergement souverain européen et expertise métier pour transformer votre avant-vente.
+            </p>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="py-8 bg-white border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center items-center gap-8">
+                <div class="tech-badge rounded-full px-4 py-2 flex items-center gap-2">
+                    <span class="text-2xl">🇪🇺</span>
+                    <span class="text-sm font-medium">Hébergement EU</span>
+                </div>
+                <div class="tech-badge rounded-full px-4 py-2 flex items-center gap-2">
+                    <i data-lucide="lock" class="w-4 h-4 text-brand-primary"></i>
+                    <span class="text-sm font-medium">RGPD Compliant</span>
+                </div>
+                <div class="tech-badge rounded-full px-4 py-2 flex items-center gap-2">
+                    <i data-lucide="git-branch" class="w-4 h-4 text-brand-accent"></i>
+                    <span class="text-sm font-medium">100% Open Source LLM</span>
+                </div>
+                <div class="tech-badge rounded-full px-4 py-2 flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4 text-brand-warning"></i>
+                    <span class="text-sm font-medium">Human-in-the-Loop</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flow Métier -->
+    <section class="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block px-4 py-2 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-medium mb-4">
+                    Le Parcours BidBooster
+                </span>
+                <h2 class="text-4xl font-bold mb-4">Du sourcing à la signature</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Un flow optimisé où l'IA prépare, l'humain décide.
+                </p>
+            </div>
+
+            <!-- Flow Steps -->
+            <div class="grid lg:grid-cols-6 gap-4 mb-16">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+                        <i data-lucide="radar" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <div class="text-xs text-brand-primary font-medium mb-1">ÉTAPE 1</div>
+                    <h3 class="font-bold mb-2">Sourcing</h3>
+                    <p class="text-sm text-gray-600">Connexion multi-sources : BOAMP, TED, plateformes privées, réseau
+                        off-market</p>
+                    <div
+                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-primary rounded-full hidden lg:block z-10">
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+                        <i data-lucide="brain" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <div class="text-xs text-brand-primary font-medium mb-1">ÉTAPE 2</div>
+                    <h3 class="font-bold mb-2">Analyse IA</h3>
+                    <p class="text-sm text-gray-600">Extraction automatique, scoring multi-critères par 4 LLM open
+                        source</p>
+                    <div
+                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-accent rounded-full hidden lg:block z-10">
+                    </div>
+                </div>
+
+                <!-- Step 3 - HUMAN -->
+                <div
+                    class="bg-gradient-to-br from-brand-accent/10 to-brand-primary/10 rounded-2xl p-6 shadow-lg border-2 border-brand-accent relative human-glow">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/20 flex items-center justify-center mb-4">
+                        <i data-lucide="user-check" class="w-6 h-6 text-brand-accent"></i>
+                    </div>
+                    <div class="text-xs text-brand-accent font-bold mb-1">DÉCISION</div>
+                    <h3 class="font-bold mb-2 text-brand-dark">Validation Expert</h3>
+                    <p class="text-sm text-gray-700">L'humain tranche : GO/NO-GO, ajustements, priorités stratégiques
+                    </p>
+                    <div
+                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-warning rounded-full hidden lg:block z-10">
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+                        <i data-lucide="database" class="w-6 h-6 text-amber-600"></i>
+                    </div>
+                    <div class="text-xs text-brand-primary font-medium mb-1">ÉTAPE 4</div>
+                    <h3 class="font-bold mb-2">Enrichissement</h3>
+                    <p class="text-sm text-gray-600">RAG sur vos références, CV, missions passées, documents internes
+                    </p>
+                    <div
+                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-primary rounded-full hidden lg:block z-10">
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                    <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
+                        <i data-lucide="file-text" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <div class="text-xs text-brand-primary font-medium mb-1">ÉTAPE 5</div>
+                    <h3 class="font-bold mb-2">Génération</h3>
+                    <p class="text-sm text-gray-600">Draft de réponse structuré, personnalisé, avec preuves vérifiables
+                    </p>
+                    <div
+                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-accent rounded-full hidden lg:block z-10">
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
+                        <i data-lucide="send" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <div class="text-xs text-brand-primary font-medium mb-1">ÉTAPE 6</div>
+                    <h3 class="font-bold mb-2">Soumission</h3>
+                    <p class="text-sm text-gray-600">Export multi-format, suivi des deadlines, feedback loop</p>
+                </div>
+            </div>
+
+            <!-- Flow connector line -->
+            <div
+                class="hidden lg:block relative h-1 bg-gradient-to-r from-blue-500 via-brand-accent to-emerald-500 rounded-full max-w-5xl mx-auto -mt-[140px] mb-24 opacity-30">
+            </div>
+        </div>
+    </section>
+
+    <!-- LLM as a Judge -->
+    <section class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span
+                        class="inline-block px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
+                        Intelligence Collective
+                    </span>
+                    <h2 class="text-4xl font-bold mb-6">LLM-as-a-Judge : 4 IA valent mieux qu'une</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Chaque appel d'offres est analysé par un panel de 4 modèles open source indépendants.
+                        Leurs scores sont pondérés selon vos règles métier pour une évaluation robuste et explicable.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-orange-600">M</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Mistral Large 2</h4>
+                                <p class="text-sm text-gray-600">Modèle européen souverain, excellent en français et
+                                    raisonnement</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-purple-600">L</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Llama 3.3 70B</h4>
+                                <p class="text-sm text-gray-600">Puissance de Meta, idéal pour l'analyse documentaire
+                                    complexe</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-blue-600">Q</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Qwen 2.5 72B</h4>
+                                <p class="text-sm text-gray-600">Excellence en extraction de données structurées</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-cyan-100 flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-cyan-600">G</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Gemma 2 27B</h4>
+                                <p class="text-sm text-gray-600">Léger et rapide, parfait pour le scoring haute
+                                    fréquence</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white">
+                    <h3 class="font-semibold mb-6 flex items-center gap-2">
+                        <i data-lucide="settings-2" class="w-5 h-5 text-brand-accent"></i>
+                        Règles Métier Personnalisables
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm">Adéquation Technique</span>
+                                <span class="font-bold text-brand-accent">30%</span>
+                            </div>
+                            <div class="h-2 bg-white/20 rounded-full">
+                                <div class="h-full bg-brand-accent rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm">Références Secteur</span>
+                                <span class="font-bold text-brand-primary">25%</span>
+                            </div>
+                            <div class="h-2 bg-white/20 rounded-full">
+                                <div class="h-full bg-brand-primary rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm">Disponibilité Équipe</span>
+                                <span class="font-bold text-brand-warning">25%</span>
+                            </div>
+                            <div class="h-2 bg-white/20 rounded-full">
+                                <div class="h-full bg-brand-warning rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm">Marge Prévisionnelle</span>
+                                <span class="font-bold text-purple-400">20%</span>
+                            </div>
+                            <div class="h-2 bg-white/20 rounded-full">
+                                <div class="h-full bg-purple-400 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-6">
+                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
+                        Vous définissez les poids, les seuils, les critères GO/NO-GO
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Diagram -->
+    <section class="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block px-4 py-2 rounded-full bg-brand-accent/10 text-brand-accent text-sm font-medium mb-4">
+                    Architecture Technique
+                </span>
+                <h2 class="text-4xl font-bold mb-4">Une stack robuste et souveraine</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Hébergement 100% européen, modèles open source, données chiffrées de bout en bout.
+                </p>
+            </div>
+
+            <!-- Architecture Visual -->
+            <div class="bg-white rounded-3xl shadow-2xl border border-gray-200 p-8 lg:p-12">
+                <!-- Top Layer - Sources -->
+                <div class="mb-8">
+                    <div class="text-xs text-gray-500 uppercase tracking-wider mb-4 text-center">Sources de Données
+                    </div>
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
+                            <i data-lucide="globe" class="w-8 h-8 text-blue-600 mx-auto mb-2"></i>
+                            <div class="text-sm font-medium">BOAMP</div>
+                            <div class="text-xs text-gray-500">Marchés publics</div>
+                        </div>
+                        <div class="bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
+                            <i data-lucide="globe-2" class="w-8 h-8 text-blue-600 mx-auto mb-2"></i>
+                            <div class="text-sm font-medium">TED Europa</div>
+                            <div class="text-xs text-gray-500">UE Tenders</div>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
+                            <i data-lucide="building" class="w-8 h-8 text-purple-600 mx-auto mb-2"></i>
+                            <div class="text-sm font-medium">Portails Privés</div>
+                            <div class="text-xs text-gray-500">Entreprises</div>
+                        </div>
+                        <div class="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
+                            <i data-lucide="users" class="w-8 h-8 text-amber-600 mx-auto mb-2"></i>
+                            <div class="text-sm font-medium">Off-Market</div>
+                            <div class="text-xs text-gray-500">Réseau partenaires</div>
+                        </div>
+                        <div class="bg-green-50 rounded-xl p-4 text-center border border-green-100">
+                            <i data-lucide="database" class="w-8 h-8 text-green-600 mx-auto mb-2"></i>
+                            <div class="text-sm font-medium">Vos Données</div>
+                            <div class="text-xs text-gray-500">CRM, Historique</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Down -->
+                <div class="flex justify-center my-4">
+                    <div class="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-brand-primary"></div>
+                </div>
+
+                <!-- Middle Layer - Processing -->
+                <div class="sovereign-badge rounded-2xl p-6 mb-8">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span class="text-2xl">🇪🇺</span>
+                        <div class="text-white font-semibold">Infrastructure Souveraine EU</div>
+                        <i data-lucide="shield-check" class="w-5 h-5 text-brand-accent"></i>
+                    </div>
+
+                    <div class="grid lg:grid-cols-4 gap-4">
+                        <div class="bg-white/10 rounded-xl p-4 text-white text-center">
+                            <i data-lucide="cpu" class="w-8 h-8 mx-auto mb-2 text-brand-accent"></i>
+                            <div class="text-sm font-medium">GPU Cluster EU</div>
+                            <div class="text-xs text-gray-400">Scaleway, OVH</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-white text-center">
+                            <i data-lucide="brain" class="w-8 h-8 mx-auto mb-2 text-purple-400"></i>
+                            <div class="text-sm font-medium">LLM Open Source</div>
+                            <div class="text-xs text-gray-400">Mistral, Llama, Qwen</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-white text-center">
+                            <i data-lucide="search" class="w-8 h-8 mx-auto mb-2 text-blue-400"></i>
+                            <div class="text-sm font-medium">RAG Engine</div>
+                            <div class="text-xs text-gray-400">Vector DB + Web Search</div>
+                        </div>
+                        <div class="bg-white/10 rounded-xl p-4 text-white text-center">
+                            <i data-lucide="lock" class="w-8 h-8 mx-auto mb-2 text-green-400"></i>
+                            <div class="text-sm font-medium">Chiffrement E2E</div>
+                            <div class="text-xs text-gray-400">AES-256, TLS 1.3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Down -->
+                <div class="flex justify-center my-4">
+                    <div class="w-0.5 h-8 bg-gradient-to-b from-brand-primary to-brand-accent"></div>
+                </div>
+
+                <!-- Output Layer -->
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div
+                        class="bg-gradient-to-br from-brand-primary/10 to-brand-accent/10 rounded-xl p-6 border border-brand-primary/20 text-center">
+                        <i data-lucide="bar-chart-3" class="w-10 h-10 text-brand-primary mx-auto mb-3"></i>
+                        <div class="font-semibold mb-1">Dashboard Analytique</div>
+                        <div class="text-sm text-gray-600">Pipeline, scores, KPIs temps réel</div>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-brand-accent/10 to-green-100 rounded-xl p-6 border border-brand-accent/20 text-center">
+                        <i data-lucide="file-check" class="w-10 h-10 text-brand-accent mx-auto mb-3"></i>
+                        <div class="font-semibold mb-1">Drafts Générés</div>
+                        <div class="text-sm text-gray-600">Réponses structurées, preuves RAG</div>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200 text-center">
+                        <i data-lucide="webhook" class="w-10 h-10 text-amber-600 mx-auto mb-3"></i>
+                        <div class="font-semibold mb-1">Intégrations</div>
+                        <div class="text-sm text-gray-600">API, CRM, Outils internes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Human Centric -->
+    <section class="py-24 bg-brand-dark text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-3xl"></div>
+                        <div
+                            class="relative bg-gradient-to-br from-white/10 to-white/5 rounded-3xl p-8 border border-white/10">
+                            <div class="text-center mb-8">
+                                <div
+                                    class="w-24 h-24 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 human-glow">
+                                    <i data-lucide="user-circle" class="w-12 h-12 text-brand-accent"></i>
+                                </div>
+                                <div class="text-2xl font-bold">L'Expert Métier</div>
+                                <div class="text-brand-accent">Toujours aux commandes</div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-brand-accent"></i>
+                                    <span>Valide les décisions GO/NO-GO</span>
+                                </div>
+                                <div class="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                                    <i data-lucide="sliders" class="w-5 h-5 text-brand-accent"></i>
+                                    <span>Ajuste les poids des critères</span>
+                                </div>
+                                <div class="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                                    <i data-lucide="pencil" class="w-5 h-5 text-brand-accent"></i>
+                                    <span>Override les scores IA</span>
+                                </div>
+                                <div class="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                                    <i data-lucide="message-square" class="w-5 h-5 text-brand-accent"></i>
+                                    <span>Enrichit le feedback loop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2">
+                    <span
+                        class="inline-block px-4 py-2 rounded-full bg-brand-accent/20 text-brand-accent text-sm font-medium mb-4">
+                        Human-in-the-Loop
+                    </span>
+                    <h2 class="text-4xl font-bold mb-6">
+                        L'IA prépare.<br>
+                        <span class="text-brand-accent">L'humain décide.</span>
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-8">
+                        BidBooster n'est pas une boîte noire. Chaque recommandation est expliquée,
+                        traçable, et soumise à validation humaine. L'intelligence artificielle
+                        augmente votre expertise — elle ne la remplace jamais.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-3xl font-bold text-brand-accent mb-1">100%</div>
+                            <div class="text-sm text-gray-400">Décisions traçables</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-3xl font-bold text-brand-warning mb-1">0</div>
+                            <div class="text-sm text-gray-400">Boîte noire</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-gradient-to-r from-brand-primary to-brand-accent">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">
+                Prêt à découvrir BidBooster en action ?
+            </h2>
+            <p class="text-xl text-white/80 mb-8">
+                Demandez une démonstration personnalisée avec vos données.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="dashboard.html"
+                    class="bg-white text-brand-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2 cursor-pointer">
+                    <i data-lucide="play" class="w-5 h-5"></i>
+                    Voir la démo
+                </a>
+                <a href="mailto:contact@bidbooster.ai"
+                    class="bg-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/30 transition-colors inline-flex items-center justify-center gap-2 cursor-pointer border border-white/30">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Nous contacter
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-8 brightness-0 invert">
+                </div>
+                <div class="flex items-center gap-6 text-sm text-gray-400">
+                    <a href="index.html" class="hover:text-white transition-colors">Accueil</a>
+                    <a href="technologie.html" class="hover:text-white transition-colors">Technologie</a>
+                    <a href="dashboard.html" class="hover:text-white transition-colors">Démo</a>
+                </div>
+                <div class="text-sm text-gray-500">
+                    © 2026 BidBooster. Made with ❤️ in Europe.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
