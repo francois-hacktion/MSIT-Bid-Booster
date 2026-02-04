@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidBooster — Analytics</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#0A66C2',
+                            accent: '#00B389',
+                            warning: '#F59E0B',
+                            danger: '#EF4444',
+                            dark: '#0F172A',
+                            surface: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .sidebar-item {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background: rgba(10, 102, 194, 0.1);
+            border-left-color: #0A66C2;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-brand-dark">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 fixed h-full">
+            <div class="p-6">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logos/BidBooster.png" alt="BidBooster" class="h-10">
+                </a>
+            </div>
+
+            <nav class="px-4 space-y-1">
+                <a href="dashboard.html"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-500"></i>
+                    <span class="font-medium text-gray-600">Dashboard</span>
+                </a>
+                <a href="pipeline.html"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="inbox" class="w-5 h-5 text-gray-500"></i>
+                    <span class="font-medium text-gray-600">Pipeline AO</span>
+                    <span class="ml-auto bg-brand-primary text-white text-xs px-2 py-0.5 rounded-full">12</span>
+                </a>
+                <a href="#"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="file-plus" class="w-5 h-5 text-gray-500"></i>
+                    <span class="font-medium text-gray-600">Nouvel AO</span>
+                </a>
+                <a href="knowledge.html"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="database" class="w-5 h-5 text-gray-500"></i>
+                    <span class="font-medium text-gray-600">Base de Savoir</span>
+                </a>
+                <a href="analytics.html"
+                    class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-transparent cursor-pointer">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-brand-primary"></i>
+                    <span class="font-medium">Analytics</span>
+                </a>
+            </nav>
+
+            <!-- User Section -->
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                        <span class="text-brand-primary font-semibold">JM</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Julie Martin</div>
+                        <div class="text-xs text-gray-500">Bid Manager</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold">Analytics & Performance</h1>
+                    <p class="text-gray-500 mt-1">Mesurez l'impact de BidBooster sur votre avant-vente</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <select
+                        class="border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 cursor-pointer">
+                        <option>30 derniers jours</option>
+                        <option>90 derniers jours</option>
+                        <option>Cette année</option>
+                        <option>Tout</option>
+                    </select>
+                    <button
+                        class="bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center gap-2 cursor-pointer">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        Exporter
+                    </button>
+                </div>
+            </div>
+
+            <!-- ROI Summary -->
+            <div class="bg-gradient-to-r from-brand-dark to-slate-800 rounded-2xl p-8 mb-8 text-white">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold">Retour sur Investissement</h2>
+                    <span class="bg-brand-accent text-white px-4 py-1 rounded-full text-sm font-semibold">ROI
+                        Atteint</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div class="text-4xl font-bold text-brand-accent mb-1">-63%</div>
+                        <div class="text-gray-400">Temps de production</div>
+                        <div class="text-sm text-gray-500 mt-1">vs. avant BidBooster</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-brand-accent mb-1">-48%</div>
+                        <div class="text-gray-400">Coûts avant-vente</div>
+                        <div class="text-sm text-gray-500 mt-1">312k€ économisés</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-brand-accent mb-1">+23%</div>
+                        <div class="text-gray-400">Taux de succès</div>
+                        <div class="text-sm text-gray-500 mt-1">67% vs 44% avant</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-brand-accent mb-1">4.2x</div>
+                        <div class="text-gray-400">ROI Global</div>
+                        <div class="text-sm text-gray-500 mt-1">Atteint en 4 mois</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid lg:grid-cols-2 gap-6 mb-8">
+                <!-- Win Rate Evolution -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-lg">Évolution du Taux de Succès</h3>
+                        <span class="text-sm text-green-600 font-medium flex items-center gap-1">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            +23%
+                        </span>
+                    </div>
+                    <canvas id="winRateChart" height="200"></canvas>
+                </div>
+
+                <!-- Time Saved -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-lg">Temps Économisé par AO</h3>
+                        <span class="text-sm text-green-600 font-medium flex items-center gap-1">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            -63%
+                        </span>
+                    </div>
+                    <canvas id="timeSavedChart" height="200"></canvas>
+                </div>
+
+                <!-- Pipeline by Sector -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-lg">Pipeline par Secteur</h3>
+                    </div>
+                    <canvas id="sectorChart" height="200"></canvas>
+                </div>
+
+                <!-- AI Accuracy -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-lg">Précision des Recommandations IA</h3>
+                        <span class="text-sm text-green-600 font-medium">92% de pertinence</span>
+                    </div>
+                    <canvas id="accuracyChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Detailed Stats -->
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Top Performing Sectors -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="font-bold text-lg mb-4">Secteurs les Plus Performants</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+                                <span>Banque / Finance</span>
+                            </div>
+                            <span class="font-semibold">78%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                                <span>Retail / GMS</span>
+                            </div>
+                            <span class="font-semibold">72%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+                                <span>Aéronautique / Défense</span>
+                            </div>
+                            <span class="font-semibold">68%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 bg-amber-500 rounded-full"></span>
+                                <span>Énergie</span>
+                            </div>
+                            <span class="font-semibold">65%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                                <span>Télécom</span>
+                            </div>
+                            <span class="font-semibold">58%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Performance -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="font-bold text-lg mb-4">Performance LLM-as-Judge</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">Claude 3.5 Sonnet</span>
+                                <span class="text-sm font-semibold text-green-600">94%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">GPT-4o</span>
+                                <span class="text-sm font-semibold text-green-600">91%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500 rounded-full" style="width: 91%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">Mistral Large</span>
+                                <span class="text-sm font-semibold text-green-600">89%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500 rounded-full" style="width: 89%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">Llama 3.2</span>
+                                <span class="text-sm font-semibold text-yellow-600">86%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-500 rounded-full" style="width: 86%"></div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Consensus moyen</span>
+                                <span class="font-bold text-brand-primary">σ = 0.31</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Log -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="font-bold text-lg mb-4">Activité Récente</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">AO Carrefour validé GO</div>
+                                <div class="text-xs text-gray-500">Il y a 2h • Julie M.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="file-text" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">Draft BNP généré</div>
+                                <div class="text-xs text-gray-500">Il y a 4h • Auto</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="upload" class="w-4 h-4 text-purple-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">Nouvel AO importé</div>
+                                <div class="text-xs text-gray-500">Il y a 6h • Marc D.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="edit" class="w-4 h-4 text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">Score overridé</div>
+                                <div class="text-xs text-gray-500">Hier • Pierre L.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="x" class="w-4 h-4 text-red-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">AO SocGen marqué NO-GO</div>
+                                <div class="text-xs text-gray-500">Hier • Julie M.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Win Rate Chart
+        new Chart(document.getElementById('winRateChart'), {
+            type: 'line',
+            data: {
+                labels: ['Sep', 'Oct', 'Nov', 'Déc', 'Jan', 'Fév'],
+                datasets: [{
+                    label: 'Avec BidBooster',
+                    data: [52, 58, 61, 65, 67, 67],
+                    borderColor: '#00B389',
+                    backgroundColor: 'rgba(0, 179, 137, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Moyenne historique',
+                    data: [44, 44, 44, 44, 44, 44],
+                    borderColor: '#94A3B8',
+                    borderDash: [5, 5],
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } },
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+
+        // Time Saved Chart
+        new Chart(document.getElementById('timeSavedChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Analyse', 'Rédaction', 'Révision', 'Validation'],
+                datasets: [{
+                    label: 'Avant (heures)',
+                    data: [12, 40, 16, 8],
+                    backgroundColor: '#E2E8F0'
+                }, {
+                    label: 'Avec BidBooster',
+                    data: [2, 12, 6, 4],
+                    backgroundColor: '#0A66C2'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // Sector Chart
+        new Chart(document.getElementById('sectorChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Banque/Finance', 'Retail', 'Industrie', 'Énergie', 'Défense', 'Autres'],
+                datasets: [{
+                    data: [35, 25, 15, 10, 10, 5],
+                    backgroundColor: ['#0A66C2', '#00B389', '#8B5CF6', '#F59E0B', '#EF4444', '#94A3B8']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+
+        // Accuracy Chart
+        new Chart(document.getElementById('accuracyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['GO correct', 'NO-GO correct', 'Faux positifs', 'Faux négatifs'],
+                datasets: [{
+                    data: [87, 92, 5, 3],
+                    backgroundColor: ['#00B389', '#00B389', '#F59E0B', '#EF4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: { x: { max: 100 } }
+            }
+        });
+    </script>
+</body>
+
+</html>
