@@ -384,7 +384,8 @@
 
     <!-- AO Detail Panel (Slide from right) -->
     <div id="aoDetailModal"
-        class="modal fixed inset-y-0 right-0 bg-black/50 backdrop-blur-sm z-50 flex items-stretch justify-end w-full hidden" style="display:none;">
+        class="modal fixed inset-y-0 right-0 bg-black/50 backdrop-blur-sm z-50 flex items-stretch justify-end w-full hidden"
+        style="display:none;">
         <div class="bg-white w-full max-w-3xl shadow-2xl overflow-y-auto h-full ml-auto">
             <div class="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white z-10">
                 <div>
@@ -541,10 +542,15 @@
             document.getElementById('uploadModal').classList.remove('active');
         }
         function openAODetail() {
-            document.getElementById('aoDetailModal').classList.add('active');
+            const modal = document.getElementById('aoDetailModal');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            lucide.createIcons();
         }
         function closeAODetail() {
-            document.getElementById('aoDetailModal').classList.remove('active');
+            const modal = document.getElementById('aoDetailModal');
+            modal.classList.add('hidden');
+            modal.style.display = 'none';
         }
 
         document.addEventListener('keydown', (e) => {
