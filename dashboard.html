@@ -382,30 +382,30 @@
         </div>
     </div>
 
-    <!-- AO Detail Modal -->
+    <!-- AO Detail Panel (Slide from right) -->
     <div id="aoDetailModal"
-        class="modal fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center overflow-y-auto py-4">
-        <div class="bg-white rounded-xl w-full max-w-4xl mx-4 shadow-2xl my-auto">
-            <div
-                class="p-4 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white rounded-t-xl z-10">
+        class="modal fixed inset-y-0 right-0 bg-black/50 backdrop-blur-sm z-50 flex items-stretch justify-end w-full">
+        <div class="bg-white w-full max-w-3xl shadow-2xl overflow-y-auto h-full ml-auto">
+            <div class="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white z-10">
                 <div>
-                    <div class="flex items-center gap-2">
-                        <h3 class="font-bold">Transformation SI Retail — Carrefour</h3>
+                    <div class="flex items-center gap-3">
+                        <h3 class="text-lg font-bold">Transformation SI Retail — Carrefour</h3>
                         <span
-                            class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">GO</span>
+                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-green-100 text-green-700">GO</span>
                     </div>
-                    <p class="text-gray-500 text-xs mt-0.5">AO-2026-0142 • Deadline: 15 Feb 2026</p>
+                    <p class="text-gray-500 text-sm mt-1">AO-2026-0142 • Deadline: 15 Feb 2026 • Budget: 2.4M€</p>
                 </div>
-                <button onclick="closeAODetail()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
+                <button onclick="closeAODetail()"
+                    class="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600 cursor-pointer transition-colors">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <div class="p-4 grid grid-cols-3 gap-4">
+            <div class="p-5 grid grid-cols-3 gap-5">
                 <!-- Main Content -->
-                <div class="col-span-2 space-y-4">
+                <div class="col-span-2 space-y-5">
                     <!-- Score Summary -->
-                    <div class="bg-gradient-to-r from-brand-dark to-slate-800 rounded-lg p-4 text-white">
+                    <div class="bg-gradient-to-r from-brand-dark to-slate-800 rounded-xl p-5 text-white">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="font-semibold text-sm flex items-center gap-2">
                                 <i data-lucide="brain" class="w-4 h-4 text-brand-accent"></i>
@@ -434,23 +434,39 @@
                                 <div class="text-xs text-gray-400">Rentabilité</div>
                             </div>
                         </div>
-                        <div class="bg-white/5 rounded p-3">
-                            <div class="text-xs text-gray-400 mb-2">LLM-as-Judge (4 modèles)</div>
-                            <div class="grid grid-cols-4 gap-2 text-xs">
-                                <div class="flex items-center gap-1"><span
-                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>Claude <span
-                                        class="ml-auto font-semibold">8.8</span></div>
-                                <div class="flex items-center gap-1"><span
-                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>GPT-4o <span
-                                        class="ml-auto font-semibold">8.5</span></div>
-                                <div class="flex items-center gap-1"><span
-                                        class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>Mistral <span
-                                        class="ml-auto font-semibold">8.2</span></div>
-                                <div class="flex items-center gap-1"><span
-                                        class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>Llama <span
-                                        class="ml-auto font-semibold">8.9</span></div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="text-xs text-gray-400">LLM-as-Judge (4 modèles Open Source)</div>
+                                <span
+                                    class="text-[10px] bg-brand-accent/20 text-brand-accent px-1.5 py-0.5 rounded">Consensus
+                                    87%</span>
                             </div>
-                            <div class="text-xs text-gray-400 mt-2">Consensus : Fort (σ = 0.28)</div>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1.5">
+                                    <span
+                                        class="w-5 h-5 bg-orange-500/20 rounded flex items-center justify-center text-orange-400 font-bold text-[10px]">M</span>
+                                    <span class="flex-1">Mistral Large</span>
+                                    <span class="font-semibold text-green-400">8.8</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1.5">
+                                    <span
+                                        class="w-5 h-5 bg-purple-500/20 rounded flex items-center justify-center text-purple-400 font-bold text-[10px]">L</span>
+                                    <span class="flex-1">Llama 3.3</span>
+                                    <span class="font-semibold text-green-400">8.5</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1.5">
+                                    <span
+                                        class="w-5 h-5 bg-blue-500/20 rounded flex items-center justify-center text-blue-400 font-bold text-[10px]">Q</span>
+                                    <span class="flex-1">Qwen 2.5</span>
+                                    <span class="font-semibold text-yellow-400">8.2</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1.5">
+                                    <span
+                                        class="w-5 h-5 bg-cyan-500/20 rounded flex items-center justify-center text-cyan-400 font-bold text-[10px]">G</span>
+                                    <span class="flex-1">Gemma 2</span>
+                                    <span class="font-semibold text-green-400">8.9</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

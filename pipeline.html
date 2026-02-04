@@ -288,7 +288,7 @@
         function renderPipeline(data) {
             const table = document.getElementById('pipelineTable');
             table.innerHTML = data.map(ao => `
-                <div class="table-row grid grid-cols-12 gap-4 px-4 py-3 items-center cursor-pointer" onclick="window.location.href='dashboard.html'">
+                <div class="table-row grid grid-cols-12 gap-4 px-4 py-3 items-center cursor-pointer" onclick="window.location.href='dashboard.html#ao-detail'">
                     <div class="col-span-3">
                         <div class="font-medium text-sm text-gray-900">${ao.title}</div>
                         <div class="text-xs text-gray-400">${ao.sector}</div>
