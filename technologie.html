@@ -120,10 +120,10 @@
                     <a href="technologie.html" class="text-brand-primary font-medium">Technologie</a>
                     <a href="dashboard.html" class="text-gray-600 hover:text-brand-primary transition-colors">Démo</a>
                 </div>
-                <a href="dashboard.html"
+                <button onclick="openSSOModal()"
                     class="gradient-accent text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer">
                     Voir la démo
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -404,6 +404,131 @@
                 </p>
             </div>
 
+            <!-- Cognitive Engine Flowchart -->
+            <div
+                class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-8 lg:p-12 mb-16 border border-slate-200">
+                <h3 class="text-2xl font-bold text-center mb-8">Moteur Cognitif BidBooster</h3>
+
+                <div class="max-w-lg mx-auto">
+                    <!-- Step 1: Données Brutes -->
+                    <div class="flex justify-center mb-4">
+                        <div
+                            class="bg-indigo-100 border-2 border-indigo-300 rounded-xl px-8 py-4 text-center shadow-sm">
+                            <div class="font-semibold text-indigo-800">Données Brutes</div>
+                            <div class="text-xs text-indigo-600">AO, DCE, Annexes</div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow + Label -->
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="w-0.5 h-6 bg-indigo-400"></div>
+                        <div class="text-xs text-gray-500 italic my-1">Extraction NLP</div>
+                        <div
+                            class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-indigo-400">
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Compréhension -->
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-blue-100 border-2 border-blue-300 rounded-xl px-8 py-4 text-center shadow-sm">
+                            <div class="font-semibold text-blue-800">Compréhension du Contexte</div>
+                            <div class="text-xs text-blue-600">Secteur, exigences, contraintes</div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow + Label -->
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="w-0.5 h-6 bg-blue-400"></div>
+                        <div class="text-xs text-gray-500 italic my-1">Analyse Multi-LLM</div>
+                        <div
+                            class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-blue-400">
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Diamond - Filtre Cognitif -->
+                    <div class="flex justify-center mb-4">
+                        <div class="relative">
+                            <div
+                                class="w-40 h-40 bg-gradient-to-br from-pink-400 to-pink-600 rotate-45 rounded-xl shadow-lg flex items-center justify-center">
+                                <div class="-rotate-45 text-center text-white">
+                                    <div class="font-bold text-lg">Filtre Cognitif</div>
+                                    <div class="text-xs opacity-80">LLM-as-a-Judge</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two branches -->
+                    <div class="grid grid-cols-2 gap-8 mb-4">
+                        <!-- Left Branch -->
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-0.5 bg-pink-400"></div>
+                                <span class="text-xs text-gray-500 italic">Scoring positif</span>
+                            </div>
+                            <div
+                                class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-pink-400 mb-2">
+                            </div>
+                            <div
+                                class="bg-green-100 border-2 border-green-300 rounded-xl px-4 py-3 text-center shadow-sm">
+                                <div class="font-semibold text-green-800 text-sm">Opportunité</div>
+                                <div class="text-xs text-green-600">Qualifiée</div>
+                            </div>
+                        </div>
+
+                        <!-- Right Branch -->
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs text-gray-500 italic">Risque détecté</span>
+                                <div class="w-8 h-0.5 bg-pink-400"></div>
+                            </div>
+                            <div
+                                class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-pink-400 mb-2">
+                            </div>
+                            <div class="bg-red-100 border-2 border-red-300 rounded-xl px-4 py-3 text-center shadow-sm">
+                                <div class="font-semibold text-red-800 text-sm">Alerte</div>
+                                <div class="text-xs text-red-600">No-Go potentiel</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merge Arrow -->
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="w-48 h-0.5 bg-gray-300"></div>
+                        <div class="w-0.5 h-6 bg-gray-400"></div>
+                        <div class="text-xs text-gray-500 italic my-1">Validation Expert</div>
+                        <div
+                            class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-gray-400">
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Insight -->
+                    <div class="flex justify-center mb-4">
+                        <div
+                            class="bg-indigo-200 border-2 border-indigo-400 rounded-xl px-8 py-4 text-center shadow-md">
+                            <div class="font-bold text-indigo-900">Insight Actionnable</div>
+                            <div class="text-xs text-indigo-700">Score + Recommandation</div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow + Label -->
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="w-0.5 h-6 bg-indigo-400"></div>
+                        <div
+                            class="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-indigo-400">
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Decision -->
+                    <div class="flex justify-center">
+                        <div class="bg-slate-100 border-2 border-slate-400 rounded-xl px-8 py-4 text-center shadow-sm">
+                            <div class="font-semibold text-slate-800">Décision Stratégique</div>
+                            <div class="text-xs text-slate-600">GO / NO-GO / À enrichir</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Architecture Visual -->
             <div class="bg-white rounded-3xl shadow-2xl border border-gray-200 p-8 lg:p-12">
                 <!-- Top Layer - Sources -->
@@ -585,11 +710,11 @@
                 Demandez une démonstration personnalisée avec vos données.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="dashboard.html"
+                <button onclick="openSSOModal()"
                     class="bg-white text-brand-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2 cursor-pointer">
                     <i data-lucide="play" class="w-5 h-5"></i>
                     Voir la démo
-                </a>
+                </button>
                 <a href="mailto:contact@bidbooster.ai"
                     class="bg-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/30 transition-colors inline-flex items-center justify-center gap-2 cursor-pointer border border-white/30">
                     <i data-lucide="mail" class="w-5 h-5"></i>
@@ -635,7 +760,73 @@
 
     <script>
         lucide.createIcons();
+
+        // SSO Modal
+        function openSSOModal() {
+            const modal = document.getElementById('ssoModal');
+            modal.style.display = 'flex';
+            modal.classList.add('active');
+        }
+        function closeSSOModal() {
+            const modal = document.getElementById('ssoModal');
+            modal.style.display = 'none';
+            modal.classList.remove('active');
+        }
+        function connectSSO() {
+            document.getElementById('sso-content').innerHTML = `
+                <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Connexion réussie !</h4>
+                    <p class="text-gray-500 mb-6">Bienvenue Julie. Redirection en cours...</p>
+                    <div class="animate-pulse text-brand-primary">●●●</div>
+                </div>
+            `;
+            lucide.createIcons();
+            setTimeout(() => { window.location.href = 'dashboard.html'; }, 2000);
+        }
     </script>
+
+    <!-- SSO Modal -->
+    <div id="ssoModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] items-center justify-center hidden"
+        style="display: none;">
+        <div class="bg-white rounded-2xl w-full max-w-md mx-4 shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-[#A100FF] to-[#7B00C4] p-6 text-white text-center">
+                <div class="w-16 h-16 bg-white rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                    <span class="text-[#A100FF] font-bold text-xl">N&gt;</span>
+                </div>
+                <h3 class="text-xl font-bold">Connexion Entreprise</h3>
+                <p class="text-white/80 text-sm mt-1">Nexora Single Sign-On</p>
+            </div>
+            <div id="sso-content" class="p-6">
+                <div class="flex items-center gap-4 bg-gray-50 rounded-xl p-4 mb-6">
+                    <div class="w-12 h-12 bg-[#A100FF]/10 rounded-full flex items-center justify-center">
+                        <span class="text-[#A100FF] font-bold">JM</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-gray-900">Julie Martin</div>
+                        <div class="text-sm text-gray-500">julie.martin@nexora-consulting.com</div>
+                    </div>
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 ml-auto"></i>
+                </div>
+                <div class="text-center text-sm text-gray-500 mb-6">
+                    <i data-lucide="shield-check" class="w-4 h-4 inline mr-1 text-green-500"></i>
+                    Session SSO active • Dernière connexion il y a 2h
+                </div>
+                <button onclick="connectSSO()"
+                    class="w-full bg-[#A100FF] text-white py-3 rounded-xl font-semibold hover:bg-[#8A00DB] transition-colors cursor-pointer flex items-center justify-center gap-2">
+                    <i data-lucide="log-in" class="w-5 h-5"></i>
+                    Continuer vers BidBooster
+                </button>
+            </div>
+            <div class="bg-gray-50 px-6 py-4 flex justify-between items-center">
+                <span class="text-xs text-gray-400">Connexion sécurisée</span>
+                <button onclick="closeSSOModal()"
+                    class="text-sm text-gray-500 hover:text-gray-700 cursor-pointer">Annuler</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
