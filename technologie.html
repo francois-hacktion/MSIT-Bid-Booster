@@ -186,9 +186,9 @@
             </div>
 
             <!-- Flow Steps -->
-            <div class="grid lg:grid-cols-6 gap-4 mb-16">
+            <div class="grid lg:grid-cols-11 gap-2 items-start mb-16">
                 <!-- Step 1 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
                         <i data-lucide="radar" class="w-6 h-6 text-blue-600"></i>
                     </div>
@@ -196,13 +196,15 @@
                     <h3 class="font-bold mb-2">Sourcing</h3>
                     <p class="text-sm text-gray-600">Connexion multi-sources : BOAMP, TED, plateformes privées, réseau
                         off-market</p>
-                    <div
-                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-primary rounded-full hidden lg:block z-10">
-                    </div>
+                </div>
+
+                <!-- Arrow 1 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <i data-lucide="chevron-right" class="w-6 h-6 text-brand-primary"></i>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
                         <i data-lucide="brain" class="w-6 h-6 text-purple-600"></i>
                     </div>
@@ -210,14 +212,16 @@
                     <h3 class="font-bold mb-2">Analyse IA</h3>
                     <p class="text-sm text-gray-600">Extraction automatique, scoring multi-critères par 4 LLM open
                         source</p>
-                    <div
-                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-accent rounded-full hidden lg:block z-10">
-                    </div>
+                </div>
+
+                <!-- Arrow 2 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <i data-lucide="chevron-right" class="w-6 h-6 text-brand-accent"></i>
                 </div>
 
                 <!-- Step 3 - HUMAN -->
                 <div
-                    class="bg-gradient-to-br from-brand-accent/10 to-brand-primary/10 rounded-2xl p-6 shadow-lg border-2 border-brand-accent relative human-glow">
+                    class="lg:col-span-2 bg-gradient-to-br from-brand-accent/10 to-brand-primary/10 rounded-2xl p-6 shadow-lg border-2 border-brand-accent human-glow">
                     <div class="w-12 h-12 rounded-xl bg-brand-accent/20 flex items-center justify-center mb-4">
                         <i data-lucide="user-check" class="w-6 h-6 text-brand-accent"></i>
                     </div>
@@ -225,13 +229,15 @@
                     <h3 class="font-bold mb-2 text-brand-dark">Validation Expert</h3>
                     <p class="text-sm text-gray-700">L'humain tranche : GO/NO-GO, ajustements, priorités stratégiques
                     </p>
-                    <div
-                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-warning rounded-full hidden lg:block z-10">
-                    </div>
+                </div>
+
+                <!-- Arrow 3 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <i data-lucide="chevron-right" class="w-6 h-6 text-brand-warning"></i>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
                         <i data-lucide="database" class="w-6 h-6 text-amber-600"></i>
                     </div>
@@ -239,13 +245,13 @@
                     <h3 class="font-bold mb-2">Enrichissement</h3>
                     <p class="text-sm text-gray-600">RAG sur vos références, CV, missions passées, documents internes
                     </p>
-                    <div
-                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-primary rounded-full hidden lg:block z-10">
-                    </div>
                 </div>
+            </div>
 
+            <!-- Second row - Steps 5-6 centered -->
+            <div class="flex justify-center gap-2 items-start mb-16">
                 <!-- Step 5 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+                <div class="w-full max-w-[200px] bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
                         <i data-lucide="file-text" class="w-6 h-6 text-green-600"></i>
                     </div>
@@ -253,13 +259,15 @@
                     <h3 class="font-bold mb-2">Génération</h3>
                     <p class="text-sm text-gray-600">Draft de réponse structuré, personnalisé, avec preuves vérifiables
                     </p>
-                    <div
-                        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-accent rounded-full hidden lg:block z-10">
-                    </div>
+                </div>
+
+                <!-- Arrow 5 -->
+                <div class="hidden lg:flex items-center justify-center px-2 pt-12">
+                    <i data-lucide="chevron-right" class="w-6 h-6 text-brand-accent"></i>
                 </div>
 
                 <!-- Step 6 -->
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                <div class="w-full max-w-[200px] bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
                         <i data-lucide="send" class="w-6 h-6 text-emerald-600"></i>
                     </div>
@@ -267,11 +275,6 @@
                     <h3 class="font-bold mb-2">Soumission</h3>
                     <p class="text-sm text-gray-600">Export multi-format, suivi des deadlines, feedback loop</p>
                 </div>
-            </div>
-
-            <!-- Flow connector line -->
-            <div
-                class="hidden lg:block relative h-1 bg-gradient-to-r from-blue-500 via-brand-accent to-emerald-500 rounded-full max-w-5xl mx-auto -mt-[140px] mb-24 opacity-30">
             </div>
         </div>
     </section>
