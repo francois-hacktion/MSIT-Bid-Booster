@@ -418,19 +418,23 @@
                             </button>
                         </div>
                         <div class="grid grid-cols-4 gap-3 text-center mb-4">
-                            <div>
+                            <div class="cursor-pointer hover:bg-white/10 rounded-lg p-2 transition-colors"
+                                onclick="openScoreDetail('global')">
                                 <div class="text-2xl font-bold text-brand-accent">8.6</div>
                                 <div class="text-xs text-gray-400">Global</div>
                             </div>
-                            <div>
+                            <div class="cursor-pointer hover:bg-white/10 rounded-lg p-2 transition-colors"
+                                onclick="openScoreDetail('adequation')">
                                 <div class="text-2xl font-bold">9.2</div>
                                 <div class="text-xs text-gray-400">Adéquation</div>
                             </div>
-                            <div>
+                            <div class="cursor-pointer hover:bg-white/10 rounded-lg p-2 transition-colors"
+                                onclick="openScoreDetail('faisabilite')">
                                 <div class="text-2xl font-bold">8.1</div>
                                 <div class="text-xs text-gray-400">Faisabilité</div>
                             </div>
-                            <div>
+                            <div class="cursor-pointer hover:bg-white/10 rounded-lg p-2 transition-colors"
+                                onclick="openScoreDetail('rentabilite')">
                                 <div class="text-2xl font-bold">8.4</div>
                                 <div class="text-xs text-gray-400">Rentabilité</div>
                             </div>
@@ -523,11 +527,54 @@
                             </div>
                             <span class="text-xs text-gray-500">65%</span>
                         </div>
-                        <button
+                        <button onclick="openDraftModal()"
                             class="w-full text-sm bg-brand-primary text-white px-3 py-2 rounded-lg hover:bg-brand-primary/90 cursor-pointer">Éditer
                             le draft</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Draft Access Modal -->
+    <div id="draftModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] items-center justify-center"
+        style="display:none;">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 shadow-2xl">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="lock" class="w-8 h-8 text-amber-600"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Accès Restreint</h3>
+                <p class="text-gray-600 mb-4">L'accès aux drafts de réponse est désactivé sur cette démo publique pour
+                    préserver la confidentialité de nos clients.</p>
+                <p class="text-sm text-gray-500 mb-6">Contactez-nous pour une démonstration personnalisée avec vos
+                    données.</p>
+                <div class="flex gap-3">
+                    <button onclick="closeDraftModal()"
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">Fermer</button>
+                    <a href="mailto:contact@bidbooster.ai"
+                        class="flex-1 px-4 py-2 bg-brand-primary text-white rounded-lg hover:bg-brand-primary/90 text-center">Nous
+                        contacter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Score Detail Modal -->
+    <div id="scoreDetailModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] items-center justify-center"
+        style="display:none;">
+        <div class="bg-white rounded-xl w-full max-w-lg mx-4 shadow-2xl">
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <h3 id="scoreDetailTitle" class="font-bold">Score Global</h3>
+                    <span id="scoreDetailScore" class="text-2xl font-bold text-brand-primary">8.6</span>
+                </div>
+                <button onclick="closeScoreDetail()" class="text-gray-400 hover:text-gray-600 cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="scoreDetailItems" class="p-4 space-y-3">
+                <!-- Dynamically filled -->
             </div>
         </div>
     </div>
@@ -557,8 +604,76 @@
             if (e.key === 'Escape') {
                 closeUploadModal();
                 closeAODetail();
+                closeDraftModal();
+                closeScoreDetail();
             }
         });
+
+        // Open AO detail if coming from pipeline
+        if (window.location.hash === '#ao-detail') {
+            openAODetail();
+            history.replaceState(null, '', window.location.pathname);
+        }
+
+        // Draft access modal
+        function openDraftModal() {
+            document.getElementById('draftModal').style.display = 'flex';
+        }
+        function closeDraftModal() {
+            document.getElementById('draftModal').style.display = 'none';
+        }
+
+        // Score detail modal
+        function openScoreDetail(type) {
+            const details = {
+                global: {
+                    title: 'Score Global', score: 8.6, items: [
+                        { label: 'Adéquation technique', score: 9.2, comment: 'Excellente correspondance avec notre stack SAP/AWS' },
+                        { label: 'Références secteur', score: 8.8, comment: '3 missions GMS similaires réussies' },
+                        { label: 'Disponibilité équipe', score: 8.1, comment: '5 consultants disponibles sur la période' },
+                        { label: 'Marge prévisionnelle', score: 8.4, comment: 'TJM compatible avec grille client' }
+                    ]
+                },
+                adequation: {
+                    title: 'Adéquation', score: 9.2, items: [
+                        { label: 'Compétences SAP S/4HANA', score: 9.5, comment: '12 consultants certifiés' },
+                        { label: 'Expérience Retail', score: 9.0, comment: 'Auchan, Casino, Fnac-Darty' },
+                        { label: 'Méthodologie Agile', score: 9.1, comment: 'Framework SAFe maîtrisé' }
+                    ]
+                },
+                faisabilite: {
+                    title: 'Faisabilité', score: 8.1, items: [
+                        { label: 'Planning', score: 7.8, comment: 'Délai serré mais réaliste' },
+                        { label: 'Ressources', score: 8.5, comment: 'Équipe disponible' },
+                        { label: 'Risques techniques', score: 8.0, comment: 'Migration complexe mais maîtrisée' }
+                    ]
+                },
+                rentabilite: {
+                    title: 'Rentabilité', score: 8.4, items: [
+                        { label: 'Marge brute estimée', score: 8.2, comment: '32% de marge prévisionnelle' },
+                        { label: 'Potentiel récurrence', score: 8.8, comment: 'TMA probable post-projet' },
+                        { label: 'Valeur référence', score: 8.2, comment: 'Client CAC40, forte visibilité' }
+                    ]
+                }
+            };
+            const data = details[type] || details.global;
+            const modal = document.getElementById('scoreDetailModal');
+            document.getElementById('scoreDetailTitle').textContent = data.title;
+            document.getElementById('scoreDetailScore').textContent = data.score;
+            document.getElementById('scoreDetailItems').innerHTML = data.items.map(item => `
+                <div class="bg-gray-50 rounded-lg p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-medium text-sm">${item.label}</span>
+                        <span class="font-bold ${item.score >= 8 ? 'text-green-600' : item.score >= 6 ? 'text-yellow-600' : 'text-red-600'}">${item.score}</span>
+                    </div>
+                    <p class="text-xs text-gray-500">${item.comment}</p>
+                </div>
+            `).join('');
+            modal.style.display = 'flex';
+        }
+        function closeScoreDetail() {
+            document.getElementById('scoreDetailModal').style.display = 'none';
+        }
     </script>
 </body>
 

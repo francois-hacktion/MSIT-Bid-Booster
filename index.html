@@ -414,6 +414,115 @@
         </div>
     </section>
 
+    <!-- ROI Calculator -->
+    <section id="calculateur" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-block px-4 py-2 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-medium mb-4">
+                    Calculez votre ROI
+                </span>
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">
+                    Combien pourriez-vous économiser ?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Estimez l'impact de BidBooster sur votre avant-vente en quelques secondes.
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-r from-slate-50 to-gray-50 rounded-3xl p-8 lg:p-12 border border-gray-200">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Inputs -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre d'AO par an</label>
+                            <input type="range" id="nbAO" min="10" max="200" value="50"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-primary"
+                                oninput="calculateROI()">
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>10</span>
+                                <span id="nbAOValue" class="font-bold text-brand-primary">50 AO</span>
+                                <span>200</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Temps moyen par AO
+                                (jours)</label>
+                            <input type="range" id="tempsAO" min="2" max="15" value="5"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-primary"
+                                oninput="calculateROI()">
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>2j</span>
+                                <span id="tempsAOValue" class="font-bold text-brand-primary">5 jours</span>
+                                <span>15j</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Montant moyen par AO
+                                (k€)</label>
+                            <input type="range" id="montantAO" min="50" max="2000" value="500" step="50"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-primary"
+                                oninput="calculateROI()">
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>50k€</span>
+                                <span id="montantAOValue" class="font-bold text-brand-primary">500k€</span>
+                                <span>2M€</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Taux de succès actuel
+                                (%)</label>
+                            <input type="range" id="tauxSucces" min="10" max="50" value="25"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-primary"
+                                oninput="calculateROI()">
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>10%</span>
+                                <span id="tauxSuccesValue" class="font-bold text-brand-primary">25%</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                        <h3 class="text-lg font-semibold mb-6">Avec BidBooster</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                                <span class="text-gray-600">Temps économisé</span>
+                                <span id="resultTemps" class="text-2xl font-bold text-brand-accent">150 jours</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                                <span class="text-gray-600">Économies avant-vente</span>
+                                <span id="resultEconomies" class="text-2xl font-bold text-brand-primary">75 000€</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                                <span class="text-gray-600">CA additionnel (+20% win rate)</span>
+                                <span id="resultCA" class="text-2xl font-bold text-brand-warning">1.25M€</span>
+                            </div>
+                            <div class="bg-gradient-to-r from-brand-primary/10 to-brand-accent/10 rounded-xl p-4 mt-4">
+                                <div class="text-center">
+                                    <div class="text-sm text-gray-600 mb-1">ROI estimé première année</div>
+                                    <div id="resultROI" class="text-4xl font-bold text-brand-primary">+1.3M€</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Contact -->
+            <div class="mt-12 text-center">
+                <p class="text-gray-600 mb-6">Prêt à transformer votre avant-vente ?</p>
+                <a href="mailto:contact@bidbooster.ai?subject=Demande de démo BidBooster"
+                    class="inline-flex items-center gap-3 gradient-accent text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity cursor-pointer shadow-lg shadow-brand-primary/20">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Demander une démo personnalisée
+                </a>
+                <p class="text-sm text-gray-500 mt-4">Réponse sous 24h • Sans engagement</p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Final -->
     <section class="py-24 gradient-hero">
         <div class="max-w-4xl mx-auto px-6 text-center">
@@ -537,6 +646,47 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeSSOModal();
         });
+
+        // ROI Calculator
+        function calculateROI() {
+            const nbAO = parseInt(document.getElementById('nbAO').value);
+            const tempsAO = parseInt(document.getElementById('tempsAO').value);
+            const montantAO = parseInt(document.getElementById('montantAO').value) * 1000;
+            const tauxSucces = parseInt(document.getElementById('tauxSucces').value) / 100;
+
+            // Update labels
+            document.getElementById('nbAOValue').textContent = nbAO + ' AO';
+            document.getElementById('tempsAOValue').textContent = tempsAO + ' jours';
+            document.getElementById('montantAOValue').textContent = (montantAO >= 1000000 ? (montantAO / 1000000).toFixed(1) + 'M€' : (montantAO / 1000) + 'k€');
+            document.getElementById('tauxSuccesValue').textContent = Math.round(tauxSucces * 100) + '%';
+
+            // Calculations based on BidBooster promises
+            const tempsEconomise = Math.round(nbAO * tempsAO * 0.6); // -60% temps
+            const coutJour = 800; // Coût journalier moyen consultant
+            const economies = tempsEconomise * coutJour;
+
+            // CA additionnel grâce à +20% win rate
+            const aoGagnesActuel = nbAO * tauxSucces;
+            const aoGagnesNew = nbAO * (tauxSucces + 0.20 * tauxSucces); // +20% relatif
+            const caAdditionnel = (aoGagnesNew - aoGagnesActuel) * montantAO;
+
+            const roiTotal = economies + caAdditionnel;
+
+            // Update results
+            document.getElementById('resultTemps').textContent = tempsEconomise + ' jours';
+            document.getElementById('resultEconomies').textContent = formatMoney(economies);
+            document.getElementById('resultCA').textContent = formatMoney(caAdditionnel);
+            document.getElementById('resultROI').textContent = '+' + formatMoney(roiTotal);
+        }
+
+        function formatMoney(value) {
+            if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M€';
+            if (value >= 1000) return Math.round(value / 1000) + ' k€';
+            return Math.round(value) + '€';
+        }
+
+        // Initialize calculator on load
+        calculateROI();
     </script>
 </body>
 
