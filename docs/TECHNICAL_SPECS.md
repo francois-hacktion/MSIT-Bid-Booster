@@ -124,9 +124,9 @@ graph TD
         Expert[👨‍💼 Expert Commercial]:::humanNode
         Refine[✨ Affinage & Styles]:::aiNode
         
-        Gate -->|GO (>80%)| Draft
-        Gate -->|A ÉVALUER (50-80%)| Expert
-        Gate -->|NO-GO (<50%)| Archive((⛔ Archivage)):::stopNode
+        Gate -- "GO (>80%)" --> Draft
+        Gate -- "A ÉVALUER (50-80%)" --> Expert
+        Gate -- "NO-GO (<50%)" --> Archive((⛔ Archivage)):::stopNode
         
         Draft --> Expert
         Expert -->|Instruction de Dernier km| Refine
